@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://code.alibabatech.com/schema/dubbo
+        http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
+
+    <!-- 消费方应用信息，用于计算依赖关系 -->
+    <dubbo:application name="account-consumer" owner="account"/>
+
+    <!-- 使用zookeeper注册中心获取服务地址 -->
+    <dubbo:registry id="account"
+                    address="zookeeper://101.200.56.199:2181?backup=101.200.56.199:2182,101.200.56.199:2183"
+                    client="zkclient" register="false"/>
+
+    <dubbo:reference interface="com.qudian.pay.account.api.facade.UserAccountFacade" id="userAccountFacade" registry="account" check="false"
+                     group="account" version="1.0.0" retries="0" timeout="1500000" url="dubbo://59.110.25.17:20880"/>
+
+    <dubbo:reference interface="com.qudian.pay.account.api.facade.SettlementAccountFacade" id="settlementAccountFacade" registry="account" check="false"
+                     group="account" version="1.0.0" retries="0" timeout="1500000" url="dubbo://127.0.0.1:20880"/>
+
+    <dubbo:reference interface="com.qudian.pay.account.api.facade.DeductionDiscountFacade" id="deductionDiscountFacade"
+                     registry="account" check="false"
+                     group="account" version="1.0.0" retries="0" timeout="1500000" url="dubbo://127.0.0.1:20880"/>
+
+    <dubbo:reference interface="com.qudian.pay.account.api.facade.RepeatRepayFacade" id="repeatRepayFacade"
+                     registry="account" check="false"
+                     group="account" version="1.0.0" retries="0" timeout="1500000" url="dubbo://127.0.0.1:20880"/>
+
+    <dubbo:reference interface="com.qudian.pay.account.api.facade.ShiwuAccountFacade" id="shiwuAccountFacade"
+                     registry="account" check="false"
+                     group="account" version="1.0.0" retries="0" timeout="1500000" url="dubbo://127.0.0.1:20880"/>
+
+    <dubbo:reference interface="com.qudian.pay.account.api.facade.OverdueFacade" id="overdueFacade"
+                     registry="account" check="false"
+                     group="account" version="1.0.0" retries="0" timeout="1500000" url="dubbo://127.0.0.1:20880"/>
+
+    <dubbo:reference interface="com.qudian.pay.account.api.facade.AccountMerchantFacade" id="accountMerchantFacade"
+                     registry="account" check="false"
+                     group="account" version="1.0.0" retries="0" timeout="1500000" url="dubbo://127.0.0.1:20880"/>
+
+    <dubbo:reference interface="com.qudian.pay.account.api.facade.DebtSwapFacade" id="debtSwapFacade"
+                     registry="account" check="false"
+                     group="account" version="1.0.0" retries="0" timeout="1500000" url="dubbo://59.110.25.17:20880"/>
+
+    <dubbo:reference interface="com.qudian.pay.account.api.facade.TradeRefundFacade" id="refundFacade"
+                     registry="account" check="false"
+                     group="account" version="1.0.0" retries="0" timeout="1500000" url="dubbo://59.110.25.17:20880"/>
+
+    <dubbo:reference interface="com.qudian.pay.account.api.facade.OverdueBuyBackFacade" id="overdueBuyBackFacade"
+                     registry="account" check="false"
+                     group="account" version="1.0.0" retries="0" timeout="1500000" url="dubbo://127.0.0.1:20880"/>
+
+    <dubbo:reference interface="com.qudian.pay.account.api.facade.CloseOrderFacade" id="closeOrderFacade"
+                     registry="account" check="false"
+                     group="account" version="1.0.0" retries="0" timeout="1500000" url="dubbo://127.0.0.1:20880"/>
+
+</beans>

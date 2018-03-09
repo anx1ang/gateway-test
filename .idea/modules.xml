@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/vertx-common/vertx-common.iml" filepath="$PROJECT_DIR$/vertx-common/vertx-common.iml" />
+      <module fileurl="file://$PROJECT_DIR$/vertx-core/vertx-core.iml" filepath="$PROJECT_DIR$/vertx-core/vertx-core.iml" />
+      <module fileurl="file://$PROJECT_DIR$/vertx-dubbo/vertx-dubbo.iml" filepath="$PROJECT_DIR$/vertx-dubbo/vertx-dubbo.iml" />
+      <module fileurl="file://$PROJECT_DIR$/vertx-gateway.iml" filepath="$PROJECT_DIR$/vertx-gateway.iml" />
+      <module fileurl="file://$PROJECT_DIR$/vertx-mongo/vertx-mongo.iml" filepath="$PROJECT_DIR$/vertx-mongo/vertx-mongo.iml" />
+      <module fileurl="file://$PROJECT_DIR$/vertx-server/vertx-server.iml" filepath="$PROJECT_DIR$/vertx-server/vertx-server.iml" />
+    </modules>
+  </component>
+</project>

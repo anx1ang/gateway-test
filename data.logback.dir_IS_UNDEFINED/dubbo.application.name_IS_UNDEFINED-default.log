@@ -1,0 +1,360 @@
+2018-03-07 17:18:00,789 [///] INFO  org.springframework.context.support.ClassPathXmlApplicationContext - Refreshing org.springframework.context.support.ClassPathXmlApplicationContext@1753acfe: startup date [Wed Mar 07 17:18:00 CST 2018]; root of context hierarchy
+2018-03-07 17:18:00,838 [///] INFO  org.springframework.beans.factory.xml.XmlBeanDefinitionReader - Loading XML bean definitions from class path resource [spring.xml]
+2018-03-07 17:18:00,988 [///] INFO  org.springframework.beans.factory.xml.XmlBeanDefinitionReader - Loading XML bean definitions from class path resource [spring-gateway-consumer.xml]
+2018-03-07 17:18:01,114 [///] INFO  org.springframework.beans.factory.xml.XmlBeanDefinitionReader - Loading XML bean definitions from class path resource [spring-gateway-api.xml]
+2018-03-07 17:18:01,220 [///] INFO  org.springframework.beans.factory.config.PropertyPlaceholderConfigurer - Loading properties file from class path resource [dubbo.properties]
+2018-03-07 17:18:01,575 [///] WARN  org.springframework.context.support.ClassPathXmlApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'serviceCodeMap' defined in class path resource [spring-gateway-api.xml]: Cannot resolve reference to bean 'user' while setting bean property 'sourceMap' with key [TypedStringValue: value [com.qudian.pay.account.api.facade.UserAccountFacade], target type [null]]; nested exception is org.springframework.beans.factory.NoSuchBeanDefinitionException: No bean named 'user' is defined
+2018-03-07 17:21:47,768 [///] INFO  org.springframework.context.support.ClassPathXmlApplicationContext - Refreshing org.springframework.context.support.ClassPathXmlApplicationContext@1753acfe: startup date [Wed Mar 07 17:21:47 CST 2018]; root of context hierarchy
+2018-03-07 17:21:47,824 [///] INFO  org.springframework.beans.factory.xml.XmlBeanDefinitionReader - Loading XML bean definitions from class path resource [spring.xml]
+2018-03-07 17:21:47,970 [///] INFO  org.springframework.beans.factory.xml.XmlBeanDefinitionReader - Loading XML bean definitions from class path resource [spring-gateway-consumer.xml]
+2018-03-07 17:21:48,084 [///] INFO  org.springframework.beans.factory.xml.XmlBeanDefinitionReader - Loading XML bean definitions from class path resource [spring-gateway-api.xml]
+2018-03-07 17:21:48,299 [///] INFO  org.springframework.beans.factory.config.PropertyPlaceholderConfigurer - Loading properties file from class path resource [dubbo.properties]
+2018-03-07 17:21:59,493 [///] INFO  com.zxk.starter.DeployVertxServer - Start Deploy....
+2018-03-07 17:21:59,498 [///] INFO  com.zxk.starter.DeployVertxServer - Register Service Verticle...
+2018-03-07 17:21:59,499 [///] INFO  com.zxk.starter.DeployVertxServer - [Method] The register processor address is dubboServer.com.qudian.pay.account.api.facade.UserAccountFacade
+2018-03-07 17:21:59,506 [///] INFO  com.zxk.starter.VerticleHandlerFactory - dubboServer.com.qudian.pay.account.api.facade.UserAccountFacade收到一条消息：
+2018-03-07 17:21:59,510 [///] INFO  com.zxk.starter.VerticleHandlerFactory - Verticle部署成功：dubboServer.com.qudian.pay.account.api.facade.UserAccountFacade
+2018-03-07 17:22:43,733 [///] ERROR com.zxk.starter.VerticleHandlerFactory - 未知异常
+java.lang.NullPointerException: null
+	at com.zxk.starter.VerticleHandlerFactory.lambda$msgHandler$0(VerticleHandlerFactory.java:108)
+	at io.vertx.core.eventbus.impl.HandlerRegistration.deliver(HandlerRegistration.java:212)
+	at io.vertx.core.eventbus.impl.HandlerRegistration.handle(HandlerRegistration.java:191)
+	at io.vertx.core.eventbus.impl.EventBusImpl.lambda$deliverToHandler$3(EventBusImpl.java:524)
+	at io.vertx.core.impl.ContextImpl.lambda$wrapTask$2(ContextImpl.java:337)
+	at io.netty.util.concurrent.AbstractEventExecutor.safeExecute(AbstractEventExecutor.java:163)
+	at io.netty.util.concurrent.SingleThreadEventExecutor.runAllTasks(SingleThreadEventExecutor.java:403)
+	at io.netty.channel.nio.NioEventLoop.run(NioEventLoop.java:445)
+	at io.netty.util.concurrent.SingleThreadEventExecutor$5.run(SingleThreadEventExecutor.java:858)
+	at java.lang.Thread.run(Thread.java:745)
+2018-03-07 17:23:49,851 [///] INFO  org.springframework.context.support.ClassPathXmlApplicationContext - Refreshing org.springframework.context.support.ClassPathXmlApplicationContext@15b204a1: startup date [Wed Mar 07 17:23:49 CST 2018]; root of context hierarchy
+2018-03-07 17:23:49,911 [///] INFO  org.springframework.beans.factory.xml.XmlBeanDefinitionReader - Loading XML bean definitions from class path resource [spring.xml]
+2018-03-07 17:23:50,088 [///] INFO  org.springframework.beans.factory.xml.XmlBeanDefinitionReader - Loading XML bean definitions from class path resource [spring-gateway-consumer.xml]
+2018-03-07 17:23:50,233 [///] INFO  org.springframework.beans.factory.xml.XmlBeanDefinitionReader - Loading XML bean definitions from class path resource [spring-gateway-api.xml]
+2018-03-07 17:23:50,446 [///] INFO  org.springframework.beans.factory.config.PropertyPlaceholderConfigurer - Loading properties file from class path resource [dubbo.properties]
+2018-03-07 17:24:02,162 [///] INFO  com.zxk.starter.DeployVertxServer - Start Deploy....
+2018-03-07 17:24:02,172 [///] INFO  com.zxk.starter.DeployVertxServer - Register Service Verticle...
+2018-03-07 17:24:05,656 [///] INFO  com.zxk.starter.DeployVertxServer - [Method] The register processor address is dubboServer.com.qudian.pay.account.api.facade.UserAccountFacade
+2018-03-07 17:24:06,965 [///] INFO  com.zxk.starter.VerticleHandlerFactory - dubboServer.com.qudian.pay.account.api.facade.UserAccountFacade收到一条消息：
+2018-03-07 17:24:07,771 [///] INFO  com.zxk.starter.VerticleHandlerFactory - Verticle部署成功：dubboServer.com.qudian.pay.account.api.facade.UserAccountFacade
+2018-03-07 17:24:49,991 [///] ERROR com.zxk.starter.VerticleHandlerFactory - 未知异常
+java.lang.NullPointerException: null
+	at com.zxk.starter.VerticleHandlerFactory.lambda$msgHandler$0(VerticleHandlerFactory.java:108)
+	at io.vertx.core.eventbus.impl.HandlerRegistration.deliver(HandlerRegistration.java:212)
+	at io.vertx.core.eventbus.impl.HandlerRegistration.handle(HandlerRegistration.java:191)
+	at io.vertx.core.eventbus.impl.EventBusImpl.lambda$deliverToHandler$3(EventBusImpl.java:524)
+	at io.vertx.core.impl.ContextImpl.lambda$wrapTask$2(ContextImpl.java:337)
+	at io.netty.util.concurrent.AbstractEventExecutor.safeExecute(AbstractEventExecutor.java:163)
+	at io.netty.util.concurrent.SingleThreadEventExecutor.runAllTasks(SingleThreadEventExecutor.java:403)
+	at io.netty.channel.nio.NioEventLoop.run(NioEventLoop.java:445)
+	at io.netty.util.concurrent.SingleThreadEventExecutor$5.run(SingleThreadEventExecutor.java:858)
+	at java.lang.Thread.run(Thread.java:745)
+2018-03-07 17:25:51,468 [///] ERROR com.zxk.starter.VerticleHandlerFactory - 未知异常
+java.lang.NullPointerException: null
+	at com.zxk.starter.VerticleHandlerFactory.lambda$msgHandler$0(VerticleHandlerFactory.java:108)
+	at io.vertx.core.eventbus.impl.HandlerRegistration.deliver(HandlerRegistration.java:212)
+	at io.vertx.core.eventbus.impl.HandlerRegistration.handle(HandlerRegistration.java:191)
+	at io.vertx.core.eventbus.impl.EventBusImpl.lambda$deliverToHandler$3(EventBusImpl.java:524)
+	at io.vertx.core.impl.ContextImpl.lambda$wrapTask$2(ContextImpl.java:337)
+	at io.netty.util.concurrent.AbstractEventExecutor.safeExecute(AbstractEventExecutor.java:163)
+	at io.netty.util.concurrent.SingleThreadEventExecutor.runAllTasks(SingleThreadEventExecutor.java:403)
+	at io.netty.channel.nio.NioEventLoop.run(NioEventLoop.java:445)
+	at io.netty.util.concurrent.SingleThreadEventExecutor$5.run(SingleThreadEventExecutor.java:858)
+	at java.lang.Thread.run(Thread.java:745)
+2018-03-07 17:26:26,434 [///] ERROR com.zxk.starter.VerticleHandlerFactory - 未知异常
+java.lang.NullPointerException: null
+	at com.zxk.starter.VerticleHandlerFactory.lambda$msgHandler$0(VerticleHandlerFactory.java:108)
+	at io.vertx.core.eventbus.impl.HandlerRegistration.deliver(HandlerRegistration.java:212)
+	at io.vertx.core.eventbus.impl.HandlerRegistration.handle(HandlerRegistration.java:191)
+	at io.vertx.core.eventbus.impl.EventBusImpl.lambda$deliverToHandler$3(EventBusImpl.java:524)
+	at io.vertx.core.impl.ContextImpl.lambda$wrapTask$2(ContextImpl.java:337)
+	at io.netty.util.concurrent.AbstractEventExecutor.safeExecute(AbstractEventExecutor.java:163)
+	at io.netty.util.concurrent.SingleThreadEventExecutor.runAllTasks(SingleThreadEventExecutor.java:403)
+	at io.netty.channel.nio.NioEventLoop.run(NioEventLoop.java:445)
+	at io.netty.util.concurrent.SingleThreadEventExecutor$5.run(SingleThreadEventExecutor.java:858)
+	at java.lang.Thread.run(Thread.java:745)
+2018-03-07 17:27:05,935 [///] ERROR com.zxk.starter.VerticleHandlerFactory - 未知异常
+java.lang.NullPointerException: null
+	at com.zxk.starter.VerticleHandlerFactory.lambda$msgHandler$0(VerticleHandlerFactory.java:108)
+	at io.vertx.core.eventbus.impl.HandlerRegistration.deliver(HandlerRegistration.java:212)
+	at io.vertx.core.eventbus.impl.HandlerRegistration.handle(HandlerRegistration.java:191)
+	at io.vertx.core.eventbus.impl.EventBusImpl.lambda$deliverToHandler$3(EventBusImpl.java:524)
+	at io.vertx.core.impl.ContextImpl.lambda$wrapTask$2(ContextImpl.java:337)
+	at io.netty.util.concurrent.AbstractEventExecutor.safeExecute(AbstractEventExecutor.java:163)
+	at io.netty.util.concurrent.SingleThreadEventExecutor.runAllTasks(SingleThreadEventExecutor.java:403)
+	at io.netty.channel.nio.NioEventLoop.run(NioEventLoop.java:445)
+	at io.netty.util.concurrent.SingleThreadEventExecutor$5.run(SingleThreadEventExecutor.java:858)
+	at java.lang.Thread.run(Thread.java:745)
+2018-03-07 17:28:56,574 [///] INFO  org.springframework.context.support.ClassPathXmlApplicationContext - Refreshing org.springframework.context.support.ClassPathXmlApplicationContext@1753acfe: startup date [Wed Mar 07 17:28:56 CST 2018]; root of context hierarchy
+2018-03-07 17:28:56,724 [///] INFO  org.springframework.beans.factory.xml.XmlBeanDefinitionReader - Loading XML bean definitions from class path resource [spring.xml]
+2018-03-07 17:28:56,923 [///] INFO  org.springframework.beans.factory.xml.XmlBeanDefinitionReader - Loading XML bean definitions from class path resource [spring-gateway-consumer.xml]
+2018-03-07 17:28:57,124 [///] INFO  org.springframework.beans.factory.xml.XmlBeanDefinitionReader - Loading XML bean definitions from class path resource [spring-gateway-api.xml]
+2018-03-07 17:28:57,446 [///] INFO  org.springframework.beans.factory.config.PropertyPlaceholderConfigurer - Loading properties file from class path resource [dubbo.properties]
+2018-03-07 17:29:09,181 [///] INFO  com.zxk.starter.DeployVertxServer - Start Deploy....
+2018-03-07 17:29:09,192 [///] INFO  com.zxk.starter.DeployVertxServer - Register Service Verticle...
+2018-03-07 17:29:09,194 [///] INFO  com.zxk.starter.DeployVertxServer - [Method] The register processor address is dubboServer.com.qudian.pay.account.api.facade.UserAccountFacade
+2018-03-07 17:29:09,202 [///] INFO  com.zxk.starter.VerticleHandlerFactory - dubboServer.com.qudian.pay.account.api.facade.UserAccountFacade收到一条消息：
+2018-03-07 17:29:09,209 [///] INFO  com.zxk.starter.VerticleHandlerFactory - Verticle部署成功：dubboServer.com.qudian.pay.account.api.facade.UserAccountFacade
+2018-03-07 17:29:46,805 [///] INFO  org.springframework.context.support.ClassPathXmlApplicationContext - Refreshing org.springframework.context.support.ClassPathXmlApplicationContext@15b204a1: startup date [Wed Mar 07 17:29:46 CST 2018]; root of context hierarchy
+2018-03-07 17:29:46,850 [///] INFO  org.springframework.beans.factory.xml.XmlBeanDefinitionReader - Loading XML bean definitions from class path resource [spring.xml]
+2018-03-07 17:29:47,006 [///] INFO  org.springframework.beans.factory.xml.XmlBeanDefinitionReader - Loading XML bean definitions from class path resource [spring-gateway-consumer.xml]
+2018-03-07 17:29:47,147 [///] INFO  org.springframework.beans.factory.xml.XmlBeanDefinitionReader - Loading XML bean definitions from class path resource [spring-gateway-api.xml]
+2018-03-07 17:29:47,305 [///] INFO  org.springframework.beans.factory.config.PropertyPlaceholderConfigurer - Loading properties file from class path resource [dubbo.properties]
+2018-03-07 17:30:10,892 [///] INFO  com.zxk.starter.DeployVertxServer - Start Deploy....
+2018-03-07 17:30:10,901 [///] INFO  com.zxk.starter.DeployVertxServer - Register Service Verticle...
+2018-03-07 17:30:12,538 [///] INFO  com.zxk.starter.DeployVertxServer - [Method] The register processor address is dubboServer.com.qudian.pay.account.api.facade.UserAccountFacade
+2018-03-07 17:30:13,231 [///] INFO  com.zxk.starter.VerticleHandlerFactory - dubboServer.com.qudian.pay.account.api.facade.UserAccountFacade收到一条消息：
+2018-03-07 17:30:13,983 [///] INFO  com.zxk.starter.VerticleHandlerFactory - Verticle部署成功：dubboServer.com.qudian.pay.account.api.facade.UserAccountFacade
+2018-03-07 17:33:48,210 [///] INFO  org.springframework.context.support.ClassPathXmlApplicationContext - Refreshing org.springframework.context.support.ClassPathXmlApplicationContext@15b204a1: startup date [Wed Mar 07 17:33:48 CST 2018]; root of context hierarchy
+2018-03-07 17:33:48,271 [///] INFO  org.springframework.beans.factory.xml.XmlBeanDefinitionReader - Loading XML bean definitions from class path resource [spring.xml]
+2018-03-07 17:33:48,461 [///] INFO  org.springframework.beans.factory.xml.XmlBeanDefinitionReader - Loading XML bean definitions from class path resource [spring-gateway-consumer.xml]
+2018-03-07 17:33:48,773 [///] INFO  org.springframework.beans.factory.config.PropertyPlaceholderConfigurer - Loading properties file from class path resource [dubbo.properties]
+2018-03-07 17:34:43,456 [///] INFO  com.zxk.starter.DeployVertxServer - Start Deploy....
+2018-03-07 17:34:43,466 [///] INFO  com.zxk.starter.DeployVertxServer - Register Service Verticle...
+2018-03-07 17:34:46,242 [///] INFO  com.zxk.starter.DeployVertxServer - [Method] The register processor address is dubboServer.com.qudian.pay.account.api.facade.UserAccountFacade
+2018-03-07 17:34:47,014 [///] INFO  com.zxk.starter.VerticleHandlerFactory - dubboServer.com.qudian.pay.account.api.facade.UserAccountFacade收到一条消息：
+2018-03-07 17:34:47,752 [///] INFO  com.zxk.starter.VerticleHandlerFactory - Verticle部署成功：dubboServer.com.qudian.pay.account.api.facade.UserAccountFacade
+2018-03-07 17:36:42,122 [///] INFO  org.springframework.context.support.ClassPathXmlApplicationContext - Refreshing org.springframework.context.support.ClassPathXmlApplicationContext@15b204a1: startup date [Wed Mar 07 17:36:42 CST 2018]; root of context hierarchy
+2018-03-07 17:36:42,193 [///] INFO  org.springframework.beans.factory.xml.XmlBeanDefinitionReader - Loading XML bean definitions from class path resource [spring.xml]
+2018-03-07 17:36:42,529 [///] INFO  org.springframework.beans.factory.xml.XmlBeanDefinitionReader - Loading XML bean definitions from class path resource [spring-gateway-consumer.xml]
+2018-03-07 17:36:43,119 [///] INFO  org.springframework.beans.factory.config.PropertyPlaceholderConfigurer - Loading properties file from class path resource [dubbo.properties]
+2018-03-07 17:36:55,318 [///] INFO  com.zxk.starter.DeployVertxServer - Start Deploy....
+2018-03-07 17:36:55,331 [///] INFO  com.zxk.starter.DeployVertxServer - Register Service Verticle...
+2018-03-07 17:37:10,206 [///] INFO  com.zxk.starter.DeployVertxServer - [Method] The register processor address is dubboServer.com.qudian.pay.account.api.facade.UserAccountFacade
+2018-03-07 17:37:10,670 [///] INFO  com.zxk.starter.VerticleHandlerFactory - dubboServer.com.qudian.pay.account.api.facade.UserAccountFacade收到一条消息：
+2018-03-07 17:37:10,680 [///] INFO  com.zxk.starter.VerticleHandlerFactory - Verticle部署成功：dubboServer.com.qudian.pay.account.api.facade.UserAccountFacade
+2018-03-07 17:37:38,700 [///] INFO  org.springframework.context.support.ClassPathXmlApplicationContext - Refreshing org.springframework.context.support.ClassPathXmlApplicationContext@15b204a1: startup date [Wed Mar 07 17:37:38 CST 2018]; root of context hierarchy
+2018-03-07 17:37:38,752 [///] INFO  org.springframework.beans.factory.xml.XmlBeanDefinitionReader - Loading XML bean definitions from class path resource [spring.xml]
+2018-03-07 17:37:38,922 [///] INFO  org.springframework.beans.factory.xml.XmlBeanDefinitionReader - Loading XML bean definitions from class path resource [spring-gateway-consumer.xml]
+2018-03-07 17:37:39,261 [///] INFO  org.springframework.beans.factory.config.PropertyPlaceholderConfigurer - Loading properties file from class path resource [dubbo.properties]
+2018-03-07 17:38:13,342 [///] INFO  com.zxk.starter.DeployVertxServer - Start Deploy....
+2018-03-07 17:38:13,369 [///] INFO  com.zxk.starter.DeployVertxServer - Register Service Verticle...
+2018-03-07 17:38:17,921 [///] INFO  com.zxk.starter.DeployVertxServer - [Method] The register processor address is dubboServer.com.qudian.pay.account.api.facade.UserAccountFacade
+2018-03-07 17:38:19,047 [///] INFO  com.zxk.starter.VerticleHandlerFactory - dubboServer.com.qudian.pay.account.api.facade.UserAccountFacade收到一条消息：
+2018-03-07 17:38:20,257 [///] INFO  com.zxk.starter.VerticleHandlerFactory - Verticle部署成功：dubboServer.com.qudian.pay.account.api.facade.UserAccountFacade
+2018-03-07 17:39:04,717 [///] INFO  org.springframework.context.support.ClassPathXmlApplicationContext - Refreshing org.springframework.context.support.ClassPathXmlApplicationContext@15b204a1: startup date [Wed Mar 07 17:39:04 CST 2018]; root of context hierarchy
+2018-03-07 17:39:04,768 [///] INFO  org.springframework.beans.factory.xml.XmlBeanDefinitionReader - Loading XML bean definitions from class path resource [spring.xml]
+2018-03-07 17:39:04,948 [///] INFO  org.springframework.beans.factory.xml.XmlBeanDefinitionReader - Loading XML bean definitions from class path resource [spring-gateway-consumer.xml]
+2018-03-07 17:39:05,276 [///] INFO  org.springframework.beans.factory.config.PropertyPlaceholderConfigurer - Loading properties file from class path resource [dubbo.properties]
+2018-03-07 17:39:20,198 [///] INFO  com.zxk.starter.DeployVertxServer - Start Deploy....
+2018-03-07 17:39:20,209 [///] INFO  com.zxk.starter.DeployVertxServer - Register Service Verticle...
+2018-03-07 17:39:20,771 [///] INFO  com.zxk.starter.DeployVertxServer - [Method] The register processor address is dubboServer.com.qudian.pay.account.api.facade.UserAccountFacade
+2018-03-07 17:39:21,633 [///] INFO  com.zxk.starter.VerticleHandlerFactory - dubboServer.com.qudian.pay.account.api.facade.UserAccountFacade收到一条消息：
+2018-03-07 17:39:22,255 [///] INFO  com.zxk.starter.VerticleHandlerFactory - Verticle部署成功：dubboServer.com.qudian.pay.account.api.facade.UserAccountFacade
+2018-03-07 17:40:44,170 [///] ERROR com.zxk.starter.VerticleHandlerFactory - 未知异常
+java.lang.ClassCastException: com.qudian.pay.account.api.dto.ResponseDTO cannot be cast to io.vertx.core.json.JsonObject
+	at com.zxk.starter.VerticleHandlerFactory.lambda$msgHandler$0(VerticleHandlerFactory.java:109)
+	at io.vertx.core.eventbus.impl.HandlerRegistration.deliver(HandlerRegistration.java:212)
+	at io.vertx.core.eventbus.impl.HandlerRegistration.handle(HandlerRegistration.java:191)
+	at io.vertx.core.eventbus.impl.EventBusImpl.lambda$deliverToHandler$3(EventBusImpl.java:524)
+	at io.vertx.core.impl.ContextImpl.lambda$wrapTask$2(ContextImpl.java:337)
+	at io.netty.util.concurrent.AbstractEventExecutor.safeExecute(AbstractEventExecutor.java:163)
+	at io.netty.util.concurrent.SingleThreadEventExecutor.runAllTasks(SingleThreadEventExecutor.java:403)
+	at io.netty.channel.nio.NioEventLoop.run(NioEventLoop.java:445)
+	at io.netty.util.concurrent.SingleThreadEventExecutor$5.run(SingleThreadEventExecutor.java:858)
+	at java.lang.Thread.run(Thread.java:745)
+2018-03-07 17:44:55,638 [///] INFO  org.springframework.context.support.ClassPathXmlApplicationContext - Refreshing org.springframework.context.support.ClassPathXmlApplicationContext@15b204a1: startup date [Wed Mar 07 17:44:55 CST 2018]; root of context hierarchy
+2018-03-07 17:44:55,697 [///] INFO  org.springframework.beans.factory.xml.XmlBeanDefinitionReader - Loading XML bean definitions from class path resource [spring.xml]
+2018-03-07 17:44:55,868 [///] INFO  org.springframework.beans.factory.xml.XmlBeanDefinitionReader - Loading XML bean definitions from class path resource [spring-gateway-consumer.xml]
+2018-03-07 17:44:56,247 [///] INFO  org.springframework.beans.factory.config.PropertyPlaceholderConfigurer - Loading properties file from class path resource [dubbo.properties]
+2018-03-07 17:45:11,525 [///] INFO  com.zxk.starter.DeployVertxServer - Start Deploy....
+2018-03-07 17:45:11,584 [///] INFO  com.zxk.starter.DeployVertxServer - Register Service Verticle...
+2018-03-07 17:45:12,735 [///] INFO  com.zxk.starter.DeployVertxServer - [Method] The register processor address is dubboServer.com.qudian.pay.account.api.facade.UserAccountFacade
+2018-03-07 17:45:14,022 [///] INFO  com.zxk.starter.VerticleHandlerFactory - dubboServer.com.qudian.pay.account.api.facade.UserAccountFacade收到一条消息：
+2018-03-07 17:45:15,019 [///] INFO  com.zxk.starter.VerticleHandlerFactory - Verticle部署成功：dubboServer.com.qudian.pay.account.api.facade.UserAccountFacade
+2018-03-07 17:46:29,650 [///] ERROR com.zxk.starter.VerticleHandlerFactory - 未知异常
+io.vertx.core.json.DecodeException: Failed to decode: Can not instantiate value of type [map type; class java.util.LinkedHashMap, [simple type, class java.lang.Object] -> [simple type, class java.lang.Object]] from String value ('com.qudian.pay.account.api.dto.ResponseDTO@772a3092[code=001000,msg=userId:用户ID不能为空,isSync=<null>,businessLine=<null>,extJson=<null>]'); no single-String constructor/factory method
+ at [Source: "com.qudian.pay.account.api.dto.ResponseDTO@772a3092[code=001000,msg=userId:用户ID不能为空,isSync=<null>,businessLine=<null>,extJson=<null>]"; line: 1, column: 1]
+	at io.vertx.core.json.Json.decodeValue(Json.java:123)
+	at io.vertx.core.json.JsonObject.fromJson(JsonObject.java:950)
+	at io.vertx.core.json.JsonObject.<init>(JsonObject.java:53)
+	at com.zxk.starter.VerticleHandlerFactory.lambda$msgHandler$0(VerticleHandlerFactory.java:111)
+	at io.vertx.core.eventbus.impl.HandlerRegistration.deliver(HandlerRegistration.java:212)
+	at io.vertx.core.eventbus.impl.HandlerRegistration.handle(HandlerRegistration.java:191)
+	at io.vertx.core.eventbus.impl.EventBusImpl.lambda$deliverToHandler$3(EventBusImpl.java:524)
+	at io.vertx.core.impl.ContextImpl.lambda$wrapTask$2(ContextImpl.java:337)
+	at io.netty.util.concurrent.AbstractEventExecutor.safeExecute(AbstractEventExecutor.java:163)
+	at io.netty.util.concurrent.SingleThreadEventExecutor.runAllTasks(SingleThreadEventExecutor.java:403)
+	at io.netty.channel.nio.NioEventLoop.run(NioEventLoop.java:445)
+	at io.netty.util.concurrent.SingleThreadEventExecutor$5.run(SingleThreadEventExecutor.java:858)
+	at java.lang.Thread.run(Thread.java:745)
+2018-03-07 17:47:23,290 [///] INFO  org.springframework.context.support.ClassPathXmlApplicationContext - Refreshing org.springframework.context.support.ClassPathXmlApplicationContext@15b204a1: startup date [Wed Mar 07 17:47:23 CST 2018]; root of context hierarchy
+2018-03-07 17:47:23,354 [///] INFO  org.springframework.beans.factory.xml.XmlBeanDefinitionReader - Loading XML bean definitions from class path resource [spring.xml]
+2018-03-07 17:47:23,530 [///] INFO  org.springframework.beans.factory.xml.XmlBeanDefinitionReader - Loading XML bean definitions from class path resource [spring-gateway-consumer.xml]
+2018-03-07 17:47:23,879 [///] INFO  org.springframework.beans.factory.config.PropertyPlaceholderConfigurer - Loading properties file from class path resource [dubbo.properties]
+2018-03-07 17:47:40,987 [///] INFO  com.zxk.starter.DeployVertxServer - Start Deploy....
+2018-03-07 17:47:40,998 [///] INFO  com.zxk.starter.DeployVertxServer - Register Service Verticle...
+2018-03-07 17:47:41,891 [///] INFO  com.zxk.starter.DeployVertxServer - [Method] The register processor address is dubboServer.com.qudian.pay.account.api.facade.UserAccountFacade
+2018-03-07 17:47:42,565 [///] INFO  com.zxk.starter.VerticleHandlerFactory - dubboServer.com.qudian.pay.account.api.facade.UserAccountFacade收到一条消息：
+2018-03-07 17:47:43,124 [///] INFO  com.zxk.starter.VerticleHandlerFactory - Verticle部署成功：dubboServer.com.qudian.pay.account.api.facade.UserAccountFacade
+2018-03-07 19:26:12,349 [///] INFO  org.springframework.context.support.ClassPathXmlApplicationContext - Refreshing org.springframework.context.support.ClassPathXmlApplicationContext@1753acfe: startup date [Wed Mar 07 19:26:12 CST 2018]; root of context hierarchy
+2018-03-07 19:26:12,401 [///] INFO  org.springframework.beans.factory.xml.XmlBeanDefinitionReader - Loading XML bean definitions from class path resource [spring.xml]
+2018-03-07 19:26:12,554 [///] INFO  org.springframework.beans.factory.xml.XmlBeanDefinitionReader - Loading XML bean definitions from class path resource [spring-gateway-consumer.xml]
+2018-03-07 19:26:12,988 [///] INFO  org.springframework.beans.factory.config.PropertyPlaceholderConfigurer - Loading properties file from class path resource [dubbo.properties]
+2018-03-07 19:26:24,348 [///] INFO  com.zxk.starter.DeployVertxServer - Start Deploy....
+2018-03-07 19:26:24,348 [///] INFO  com.zxk.starter.DeployVertxServer - Register Service Verticle...
+2018-03-07 19:26:24,349 [///] INFO  com.zxk.starter.DeployVertxServer - [Method] The register processor address is dubboServer.com.qudian.pay.account.api.facade.UserAccountFacade
+2018-03-07 19:26:24,355 [///] INFO  com.zxk.starter.VerticleHandlerFactory - dubboServer.com.qudian.pay.account.api.facade.UserAccountFacade收到一条消息：
+2018-03-07 19:26:24,359 [///] INFO  com.zxk.starter.VerticleHandlerFactory - Verticle部署成功：dubboServer.com.qudian.pay.account.api.facade.UserAccountFacade
+2018-03-07 19:52:41,747 [///] INFO  org.springframework.context.support.ClassPathXmlApplicationContext - Refreshing org.springframework.context.support.ClassPathXmlApplicationContext@1753acfe: startup date [Wed Mar 07 19:52:41 CST 2018]; root of context hierarchy
+2018-03-07 19:52:41,787 [///] INFO  org.springframework.beans.factory.xml.XmlBeanDefinitionReader - Loading XML bean definitions from class path resource [spring.xml]
+2018-03-07 19:52:41,931 [///] INFO  org.springframework.beans.factory.xml.XmlBeanDefinitionReader - Loading XML bean definitions from class path resource [spring-gateway-consumer.xml]
+2018-03-07 19:52:42,233 [///] INFO  org.springframework.beans.factory.config.PropertyPlaceholderConfigurer - Loading properties file from class path resource [dubbo.properties]
+2018-03-07 19:52:53,707 [///] INFO  com.zxk.starter.DeployVertxServer - Start Deploy....
+2018-03-07 19:52:53,709 [///] INFO  com.zxk.starter.DeployVertxServer - Register Service Verticle...
+2018-03-07 19:52:53,711 [///] INFO  com.zxk.starter.DeployVertxServer - [Method] The register processor address is dubboServer.com.qudian.pay.account.api.facade.UserAccountFacade
+2018-03-07 19:52:53,719 [///] INFO  com.zxk.starter.VerticleHandlerFactory - dubboServer.com.qudian.pay.account.api.facade.UserAccountFacade收到一条消息：
+2018-03-07 19:52:53,726 [///] INFO  com.zxk.starter.VerticleHandlerFactory - Verticle部署成功：dubboServer.com.qudian.pay.account.api.facade.UserAccountFacade
+2018-03-07 19:53:23,207 [///] INFO  org.springframework.context.support.ClassPathXmlApplicationContext - Refreshing org.springframework.context.support.ClassPathXmlApplicationContext@1753acfe: startup date [Wed Mar 07 19:53:23 CST 2018]; root of context hierarchy
+2018-03-07 19:53:23,262 [///] INFO  org.springframework.beans.factory.xml.XmlBeanDefinitionReader - Loading XML bean definitions from class path resource [spring.xml]
+2018-03-07 19:53:23,482 [///] INFO  org.springframework.beans.factory.xml.XmlBeanDefinitionReader - Loading XML bean definitions from class path resource [spring-gateway-consumer.xml]
+2018-03-07 19:53:23,728 [///] INFO  org.springframework.beans.factory.config.PropertyPlaceholderConfigurer - Loading properties file from class path resource [dubbo.properties]
+2018-03-07 19:53:34,917 [///] INFO  com.zxk.starter.DeployVertxServer - Start Deploy....
+2018-03-07 19:53:34,921 [///] INFO  com.zxk.starter.DeployVertxServer - Register Service Verticle...
+2018-03-07 19:53:34,923 [///] INFO  com.zxk.starter.DeployVertxServer - [Method] The register processor address is dubboServer.com.qudian.pay.account.api.facade.UserAccountFacade
+2018-03-07 19:53:34,933 [///] INFO  com.zxk.starter.VerticleHandlerFactory - dubboServer.com.qudian.pay.account.api.facade.UserAccountFacade收到一条消息：
+2018-03-07 19:53:34,938 [///] INFO  com.zxk.starter.VerticleHandlerFactory - Verticle部署成功：dubboServer.com.qudian.pay.account.api.facade.UserAccountFacade
+2018-03-07 20:40:22,613 [///] INFO  org.springframework.context.support.ClassPathXmlApplicationContext - Refreshing org.springframework.context.support.ClassPathXmlApplicationContext@1753acfe: startup date [Wed Mar 07 20:40:22 CST 2018]; root of context hierarchy
+2018-03-07 20:40:22,669 [///] INFO  org.springframework.beans.factory.xml.XmlBeanDefinitionReader - Loading XML bean definitions from class path resource [spring.xml]
+2018-03-07 20:40:22,869 [///] INFO  org.springframework.beans.factory.xml.XmlBeanDefinitionReader - Loading XML bean definitions from class path resource [spring-gateway-consumer.xml]
+2018-03-07 20:40:23,369 [///] INFO  org.springframework.beans.factory.config.PropertyPlaceholderConfigurer - Loading properties file from class path resource [dubbo.properties]
+2018-03-07 20:40:34,963 [///] INFO  com.zxk.starter.DeployVertxServer - Start Deploy....
+2018-03-07 20:40:34,965 [///] INFO  com.zxk.starter.DeployVertxServer - Register Service Verticle...
+2018-03-07 20:40:34,974 [///] INFO  com.zxk.starter.DeployVertxServer - [Method] The register processor address is dubboServer.com.qudian.pay.account.api.facade.UserAccountFacade
+2018-03-07 20:40:34,986 [///] INFO  com.zxk.starter.VerticleHandlerFactory - dubboServer.com.qudian.pay.account.api.facade.UserAccountFacade收到一条消息：
+2018-03-07 20:40:34,994 [///] INFO  com.zxk.starter.VerticleHandlerFactory - Verticle部署成功：dubboServer.com.qudian.pay.account.api.facade.UserAccountFacade
+2018-03-07 20:42:03,667 [///] INFO  org.springframework.context.support.ClassPathXmlApplicationContext - Refreshing org.springframework.context.support.ClassPathXmlApplicationContext@1753acfe: startup date [Wed Mar 07 20:42:03 CST 2018]; root of context hierarchy
+2018-03-07 20:42:03,717 [///] INFO  org.springframework.beans.factory.xml.XmlBeanDefinitionReader - Loading XML bean definitions from class path resource [spring.xml]
+2018-03-07 20:42:03,863 [///] INFO  org.springframework.beans.factory.xml.XmlBeanDefinitionReader - Loading XML bean definitions from class path resource [spring-gateway-consumer.xml]
+2018-03-07 20:42:04,087 [///] INFO  org.springframework.beans.factory.config.PropertyPlaceholderConfigurer - Loading properties file from class path resource [dubbo.properties]
+2018-03-07 20:42:15,379 [///] INFO  com.zxk.starter.DeployVertxServer - Start Deploy....
+2018-03-07 20:42:15,382 [///] INFO  com.zxk.starter.DeployVertxServer - Register Service Verticle...
+2018-03-07 20:42:15,383 [///] INFO  com.zxk.starter.DeployVertxServer - [Method] The register processor address is dubboServer.com.qudian.pay.account.api.facade.UserAccountFacade
+2018-03-07 20:42:15,391 [///] INFO  com.zxk.starter.VerticleHandlerFactory - dubboServer.com.qudian.pay.account.api.facade.UserAccountFacade收到一条消息：
+2018-03-07 20:42:15,399 [///] INFO  com.zxk.starter.VerticleHandlerFactory - Verticle部署成功：dubboServer.com.qudian.pay.account.api.facade.UserAccountFacade
+2018-03-07 20:42:48,019 [///] ERROR com.zxk.starter.VerticleHandlerFactory - 未知异常
+java.lang.ClassCastException: io.vertx.core.json.JsonObject cannot be cast to com.zxk.starter.CommandReq
+	at com.zxk.starter.CommandReq.buildCommand(CommandReq.java:33)
+	at com.zxk.starter.VerticleHandlerFactory.lambda$msgHandler$0(VerticleHandlerFactory.java:104)
+	at io.vertx.core.eventbus.impl.HandlerRegistration.deliver(HandlerRegistration.java:212)
+	at io.vertx.core.eventbus.impl.HandlerRegistration.handle(HandlerRegistration.java:191)
+	at io.vertx.core.eventbus.impl.EventBusImpl.lambda$deliverToHandler$3(EventBusImpl.java:524)
+	at io.vertx.core.impl.ContextImpl.lambda$wrapTask$2(ContextImpl.java:337)
+	at io.netty.util.concurrent.AbstractEventExecutor.safeExecute(AbstractEventExecutor.java:163)
+	at io.netty.util.concurrent.SingleThreadEventExecutor.runAllTasks(SingleThreadEventExecutor.java:403)
+	at io.netty.channel.nio.NioEventLoop.run(NioEventLoop.java:445)
+	at io.netty.util.concurrent.SingleThreadEventExecutor$5.run(SingleThreadEventExecutor.java:858)
+	at java.lang.Thread.run(Thread.java:745)
+2018-03-07 20:43:42,592 [///] INFO  org.springframework.context.support.ClassPathXmlApplicationContext - Refreshing org.springframework.context.support.ClassPathXmlApplicationContext@1753acfe: startup date [Wed Mar 07 20:43:42 CST 2018]; root of context hierarchy
+2018-03-07 20:43:42,813 [///] INFO  org.springframework.beans.factory.xml.XmlBeanDefinitionReader - Loading XML bean definitions from class path resource [spring.xml]
+2018-03-07 20:43:43,213 [///] INFO  org.springframework.beans.factory.xml.XmlBeanDefinitionReader - Loading XML bean definitions from class path resource [spring-gateway-consumer.xml]
+2018-03-07 20:43:43,714 [///] INFO  org.springframework.beans.factory.config.PropertyPlaceholderConfigurer - Loading properties file from class path resource [dubbo.properties]
+2018-03-07 20:43:55,519 [///] INFO  com.zxk.starter.DeployVertxServer - Start Deploy....
+2018-03-07 20:43:55,521 [///] INFO  com.zxk.starter.DeployVertxServer - Register Service Verticle...
+2018-03-07 20:43:55,522 [///] INFO  com.zxk.starter.DeployVertxServer - [Method] The register processor address is dubboServer.com.qudian.pay.account.api.facade.UserAccountFacade
+2018-03-07 20:43:55,535 [///] INFO  com.zxk.starter.VerticleHandlerFactory - dubboServer.com.qudian.pay.account.api.facade.UserAccountFacade收到一条消息：
+2018-03-07 20:43:55,541 [///] INFO  com.zxk.starter.VerticleHandlerFactory - Verticle部署成功：dubboServer.com.qudian.pay.account.api.facade.UserAccountFacade
+2018-03-07 20:46:24,779 [///] ERROR com.zxk.starter.VerticleHandlerFactory - 未知异常
+java.lang.NullPointerException: null
+	at com.zxk.starter.VerticleHandlerFactory.lambda$msgHandler$0(VerticleHandlerFactory.java:107)
+	at io.vertx.core.eventbus.impl.HandlerRegistration.deliver(HandlerRegistration.java:212)
+	at io.vertx.core.eventbus.impl.HandlerRegistration.handle(HandlerRegistration.java:191)
+	at io.vertx.core.eventbus.impl.EventBusImpl.lambda$deliverToHandler$3(EventBusImpl.java:524)
+	at io.vertx.core.impl.ContextImpl.lambda$wrapTask$2(ContextImpl.java:337)
+	at io.netty.util.concurrent.AbstractEventExecutor.safeExecute(AbstractEventExecutor.java:163)
+	at io.netty.util.concurrent.SingleThreadEventExecutor.runAllTasks(SingleThreadEventExecutor.java:403)
+	at io.netty.channel.nio.NioEventLoop.run(NioEventLoop.java:445)
+	at io.netty.util.concurrent.SingleThreadEventExecutor$5.run(SingleThreadEventExecutor.java:858)
+	at java.lang.Thread.run(Thread.java:745)
+2018-03-07 20:47:06,668 [///] INFO  org.springframework.context.support.ClassPathXmlApplicationContext - Refreshing org.springframework.context.support.ClassPathXmlApplicationContext@1753acfe: startup date [Wed Mar 07 20:47:06 CST 2018]; root of context hierarchy
+2018-03-07 20:47:06,734 [///] INFO  org.springframework.beans.factory.xml.XmlBeanDefinitionReader - Loading XML bean definitions from class path resource [spring.xml]
+2018-03-07 20:47:06,968 [///] INFO  org.springframework.beans.factory.xml.XmlBeanDefinitionReader - Loading XML bean definitions from class path resource [spring-gateway-consumer.xml]
+2018-03-07 20:47:07,230 [///] INFO  org.springframework.beans.factory.config.PropertyPlaceholderConfigurer - Loading properties file from class path resource [dubbo.properties]
+2018-03-07 20:47:18,631 [///] INFO  com.zxk.starter.DeployVertxServer - Start Deploy....
+2018-03-07 20:47:18,633 [///] INFO  com.zxk.starter.DeployVertxServer - Register Service Verticle...
+2018-03-07 20:47:18,634 [///] INFO  com.zxk.starter.DeployVertxServer - [Method] The register processor address is dubboServer.com.qudian.pay.account.api.facade.UserAccountFacade
+2018-03-07 20:47:18,642 [///] INFO  com.zxk.starter.VerticleHandlerFactory - dubboServer.com.qudian.pay.account.api.facade.UserAccountFacade收到一条消息：
+2018-03-07 20:47:18,647 [///] INFO  com.zxk.starter.VerticleHandlerFactory - Verticle部署成功：dubboServer.com.qudian.pay.account.api.facade.UserAccountFacade
+2018-03-07 20:47:29,319 [///] ERROR com.zxk.starter.VerticleHandlerFactory - 未知异常
+java.lang.NullPointerException: null
+	at com.zxk.starter.VerticleHandlerFactory.lambda$msgHandler$0(VerticleHandlerFactory.java:107)
+	at io.vertx.core.eventbus.impl.HandlerRegistration.deliver(HandlerRegistration.java:212)
+	at io.vertx.core.eventbus.impl.HandlerRegistration.handle(HandlerRegistration.java:191)
+	at io.vertx.core.eventbus.impl.EventBusImpl.lambda$deliverToHandler$3(EventBusImpl.java:524)
+	at io.vertx.core.impl.ContextImpl.lambda$wrapTask$2(ContextImpl.java:337)
+	at io.netty.util.concurrent.AbstractEventExecutor.safeExecute(AbstractEventExecutor.java:163)
+	at io.netty.util.concurrent.SingleThreadEventExecutor.runAllTasks(SingleThreadEventExecutor.java:403)
+	at io.netty.channel.nio.NioEventLoop.run(NioEventLoop.java:445)
+	at io.netty.util.concurrent.SingleThreadEventExecutor$5.run(SingleThreadEventExecutor.java:858)
+	at java.lang.Thread.run(Thread.java:745)
+2018-03-07 20:47:59,941 [///] INFO  org.springframework.context.support.ClassPathXmlApplicationContext - Refreshing org.springframework.context.support.ClassPathXmlApplicationContext@15b204a1: startup date [Wed Mar 07 20:47:59 CST 2018]; root of context hierarchy
+2018-03-07 20:48:00,001 [///] INFO  org.springframework.beans.factory.xml.XmlBeanDefinitionReader - Loading XML bean definitions from class path resource [spring.xml]
+2018-03-07 20:48:00,157 [///] INFO  org.springframework.beans.factory.xml.XmlBeanDefinitionReader - Loading XML bean definitions from class path resource [spring-gateway-consumer.xml]
+2018-03-07 20:48:00,453 [///] INFO  org.springframework.beans.factory.config.PropertyPlaceholderConfigurer - Loading properties file from class path resource [dubbo.properties]
+2018-03-07 20:48:11,914 [///] INFO  com.zxk.starter.DeployVertxServer - Start Deploy....
+2018-03-07 20:48:11,917 [///] INFO  com.zxk.starter.DeployVertxServer - Register Service Verticle...
+2018-03-07 20:48:11,918 [///] INFO  com.zxk.starter.DeployVertxServer - [Method] The register processor address is dubboServer.com.qudian.pay.account.api.facade.UserAccountFacade
+2018-03-07 20:48:11,939 [///] INFO  com.zxk.starter.VerticleHandlerFactory - dubboServer.com.qudian.pay.account.api.facade.UserAccountFacade收到一条消息：
+2018-03-07 20:48:11,946 [///] INFO  com.zxk.starter.VerticleHandlerFactory - Verticle部署成功：dubboServer.com.qudian.pay.account.api.facade.UserAccountFacade
+2018-03-07 20:48:57,352 [///] ERROR com.zxk.starter.VerticleHandlerFactory - 未知异常
+java.lang.NullPointerException: null
+	at com.zxk.starter.VerticleHandlerFactory.lambda$msgHandler$0(VerticleHandlerFactory.java:107)
+	at io.vertx.core.eventbus.impl.HandlerRegistration.deliver(HandlerRegistration.java:212)
+	at io.vertx.core.eventbus.impl.HandlerRegistration.handle(HandlerRegistration.java:191)
+	at io.vertx.core.eventbus.impl.EventBusImpl.lambda$deliverToHandler$3(EventBusImpl.java:524)
+	at io.vertx.core.impl.ContextImpl.lambda$wrapTask$2(ContextImpl.java:337)
+	at io.netty.util.concurrent.AbstractEventExecutor.safeExecute(AbstractEventExecutor.java:163)
+	at io.netty.util.concurrent.SingleThreadEventExecutor.runAllTasks(SingleThreadEventExecutor.java:403)
+	at io.netty.channel.nio.NioEventLoop.run(NioEventLoop.java:445)
+	at io.netty.util.concurrent.SingleThreadEventExecutor$5.run(SingleThreadEventExecutor.java:858)
+	at java.lang.Thread.run(Thread.java:745)
+2018-03-07 20:49:40,489 [///] INFO  org.springframework.context.support.ClassPathXmlApplicationContext - Refreshing org.springframework.context.support.ClassPathXmlApplicationContext@1753acfe: startup date [Wed Mar 07 20:49:40 CST 2018]; root of context hierarchy
+2018-03-07 20:49:40,535 [///] INFO  org.springframework.beans.factory.xml.XmlBeanDefinitionReader - Loading XML bean definitions from class path resource [spring.xml]
+2018-03-07 20:49:40,704 [///] INFO  org.springframework.beans.factory.xml.XmlBeanDefinitionReader - Loading XML bean definitions from class path resource [spring-gateway-consumer.xml]
+2018-03-07 20:49:40,961 [///] INFO  org.springframework.beans.factory.config.PropertyPlaceholderConfigurer - Loading properties file from class path resource [dubbo.properties]
+2018-03-07 20:49:52,049 [///] INFO  com.zxk.starter.DeployVertxServer - Start Deploy....
+2018-03-07 20:49:52,052 [///] INFO  com.zxk.starter.DeployVertxServer - Register Service Verticle...
+2018-03-07 20:49:52,053 [///] INFO  com.zxk.starter.DeployVertxServer - [Method] The register processor address is dubboServer.com.qudian.pay.account.api.facade.UserAccountFacade
+2018-03-07 20:49:52,060 [///] INFO  com.zxk.starter.VerticleHandlerFactory - dubboServer.com.qudian.pay.account.api.facade.UserAccountFacade收到一条消息：
+2018-03-07 20:49:52,065 [///] INFO  com.zxk.starter.VerticleHandlerFactory - Verticle部署成功：dubboServer.com.qudian.pay.account.api.facade.UserAccountFacade
+2018-03-07 20:50:07,068 [///] ERROR com.zxk.starter.VerticleHandlerFactory - 未知异常
+java.lang.NullPointerException: null
+	at com.zxk.starter.VerticleHandlerFactory.lambda$msgHandler$0(VerticleHandlerFactory.java:107)
+	at io.vertx.core.eventbus.impl.HandlerRegistration.deliver(HandlerRegistration.java:212)
+	at io.vertx.core.eventbus.impl.HandlerRegistration.handle(HandlerRegistration.java:191)
+	at io.vertx.core.eventbus.impl.EventBusImpl.lambda$deliverToHandler$3(EventBusImpl.java:524)
+	at io.vertx.core.impl.ContextImpl.lambda$wrapTask$2(ContextImpl.java:337)
+	at io.netty.util.concurrent.AbstractEventExecutor.safeExecute(AbstractEventExecutor.java:163)
+	at io.netty.util.concurrent.SingleThreadEventExecutor.runAllTasks(SingleThreadEventExecutor.java:403)
+	at io.netty.channel.nio.NioEventLoop.run(NioEventLoop.java:445)
+	at io.netty.util.concurrent.SingleThreadEventExecutor$5.run(SingleThreadEventExecutor.java:858)
+	at java.lang.Thread.run(Thread.java:745)
+2018-03-07 20:50:58,882 [///] INFO  org.springframework.context.support.ClassPathXmlApplicationContext - Refreshing org.springframework.context.support.ClassPathXmlApplicationContext@15b204a1: startup date [Wed Mar 07 20:50:58 CST 2018]; root of context hierarchy
+2018-03-07 20:50:58,945 [///] INFO  org.springframework.beans.factory.xml.XmlBeanDefinitionReader - Loading XML bean definitions from class path resource [spring.xml]
+2018-03-07 20:50:59,164 [///] INFO  org.springframework.beans.factory.xml.XmlBeanDefinitionReader - Loading XML bean definitions from class path resource [spring-gateway-consumer.xml]
+2018-03-07 20:50:59,538 [///] INFO  org.springframework.beans.factory.config.PropertyPlaceholderConfigurer - Loading properties file from class path resource [dubbo.properties]
+2018-03-07 20:51:11,182 [///] INFO  com.zxk.starter.DeployVertxServer - Start Deploy....
+2018-03-07 20:51:11,186 [///] INFO  com.zxk.starter.DeployVertxServer - Register Service Verticle...
+2018-03-07 20:51:11,189 [///] INFO  com.zxk.starter.DeployVertxServer - [Method] The register processor address is dubboServer.com.qudian.pay.account.api.facade.UserAccountFacade
+2018-03-07 20:51:11,203 [///] INFO  com.zxk.starter.VerticleHandlerFactory - dubboServer.com.qudian.pay.account.api.facade.UserAccountFacade收到一条消息：
+2018-03-07 20:51:11,210 [///] INFO  com.zxk.starter.VerticleHandlerFactory - Verticle部署成功：dubboServer.com.qudian.pay.account.api.facade.UserAccountFacade
+2018-03-07 20:51:52,429 [///] ERROR com.zxk.starter.VerticleHandlerFactory - 未知异常
+java.lang.NullPointerException: null
+	at com.zxk.starter.VerticleHandlerFactory.lambda$msgHandler$0(VerticleHandlerFactory.java:107)
+	at io.vertx.core.eventbus.impl.HandlerRegistration.deliver(HandlerRegistration.java:212)
+	at io.vertx.core.eventbus.impl.HandlerRegistration.handle(HandlerRegistration.java:191)
+	at io.vertx.core.eventbus.impl.EventBusImpl.lambda$deliverToHandler$3(EventBusImpl.java:524)
+	at io.vertx.core.impl.ContextImpl.lambda$wrapTask$2(ContextImpl.java:337)
+	at io.netty.util.concurrent.AbstractEventExecutor.safeExecute(AbstractEventExecutor.java:163)
+	at io.netty.util.concurrent.SingleThreadEventExecutor.runAllTasks(SingleThreadEventExecutor.java:403)
+	at io.netty.channel.nio.NioEventLoop.run(NioEventLoop.java:445)
+	at io.netty.util.concurrent.SingleThreadEventExecutor$5.run(SingleThreadEventExecutor.java:858)
+	at java.lang.Thread.run(Thread.java:745)
+2018-03-07 20:52:05,012 [///] INFO  org.springframework.context.support.ClassPathXmlApplicationContext - Refreshing org.springframework.context.support.ClassPathXmlApplicationContext@1753acfe: startup date [Wed Mar 07 20:52:05 CST 2018]; root of context hierarchy
+2018-03-07 20:52:05,069 [///] INFO  org.springframework.beans.factory.xml.XmlBeanDefinitionReader - Loading XML bean definitions from class path resource [spring.xml]
+2018-03-07 20:52:05,242 [///] INFO  org.springframework.beans.factory.xml.XmlBeanDefinitionReader - Loading XML bean definitions from class path resource [spring-gateway-consumer.xml]
+2018-03-07 20:52:05,505 [///] INFO  org.springframework.beans.factory.config.PropertyPlaceholderConfigurer - Loading properties file from class path resource [dubbo.properties]
+2018-03-07 20:52:17,967 [///] INFO  com.zxk.starter.DeployVertxServer - Start Deploy....
+2018-03-07 20:52:17,973 [///] INFO  com.zxk.starter.DeployVertxServer - Register Service Verticle...
+2018-03-07 20:52:17,976 [///] INFO  com.zxk.starter.DeployVertxServer - [Method] The register processor address is dubboServer.com.qudian.pay.account.api.facade.UserAccountFacade
+2018-03-07 20:52:18,021 [///] INFO  com.zxk.starter.VerticleHandlerFactory - dubboServer.com.qudian.pay.account.api.facade.UserAccountFacade收到一条消息：
+2018-03-07 20:52:18,029 [///] INFO  com.zxk.starter.VerticleHandlerFactory - Verticle部署成功：dubboServer.com.qudian.pay.account.api.facade.UserAccountFacade

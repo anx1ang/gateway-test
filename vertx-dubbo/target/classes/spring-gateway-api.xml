@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+                           http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+                           http://www.springframework.org/schema/context
+                           http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+
+	<!--<bean id="serviceCodeMap" class="org.springframework.beans.factory.config.MapFactoryBean">
+		<property name="targetMapClass" value="java.util.HashMap"/>
+		<property name="sourceMap">
+			<map>
+				<entry key="com.qufenqi.pay.trade.facade.PaymentOrderFacade" value-ref="pay"/>
+				<entry key="com.qufenqi.pay.trade.facade.CommonOrderFacade" value-ref="common"/>
+                <entry key="com.qufenqi.pay.trade.facade.SignFacade" value-ref="sign"/>
+                <entry key="com.qufenqi.pay.trade.facade.DkOrderFacade" value-ref="dkOrder"/>
+				<entry key="com.qufenqi.insurance.facade.InsuranceNotifyFacade" value-ref="insuraNotifyFacade"/>
+				<entry key="com.qufenqi.pay.loanrisk.facade.LoanRiskNotifyFacade" value-ref="loanriskNotifyFacade"/>
+			</map>
+		</property>
+	</bean>-->
+
+</beans>

@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration scan="false">
+
+	<!-- 日志文件路径 -->
+	<property name="LOG_DIR" value="${data.logback.dir}" />
+
+	<!-- 应用名 -->
+	<property name="APP_NAME" value="${dubbo.application.name}"/>
+	
+	<!-- 控制台appender -->
+	<appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+		<encoder>
+			<pattern>%d [%X{MDC_CLIENT_IP}/%X{MDC_SERVER_IP}/%X{MDC_REQUEST_ID}/%X{MDC_SESSION}] %-5p %c - %m%n</pattern>
+		</encoder>
+	</appender>
+	
+	<!-- 业务日志appender -->
+	<appender name="${APP_NAME}-biz" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>${LOG_DIR}/${APP_NAME}-biz.log</file>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>${LOG_DIR}/${APP_NAME}-biz.%d{yyyy-MM-dd}.log</fileNamePattern>
+		</rollingPolicy>
+		<encoder>
+			<pattern>%d [%X{MDC_CLIENT_IP}/%X{MDC_SERVER_IP}/%X{MDC_REQUEST_ID}/%X{MDC_SESSION}] %-5p %c - %m%n</pattern>
+			<charset>UTF-8</charset>
+		</encoder>
+		<filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+			<level>INFO</level>
+		</filter>
+	</appender>
+	
+	<!-- dao日志appender -->
+	<appender name="${APP_NAME}-dao" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>${LOG_DIR}/${APP_NAME}-dao.log</file>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>${LOG_DIR}/${APP_NAME}-dao.%d{yyyy-MM-dd}.log</fileNamePattern>
+		</rollingPolicy>
+		<encoder>
+			<pattern>%d [%X{MDC_CLIENT_IP}/%X{MDC_SERVER_IP}/%X{MDC_REQUEST_ID}/%X{MDC_SESSION}] %p %c - %msg%n</pattern>
+			<charset>UTF-8</charset>
+		</encoder>
+	</appender>
+	
+	<!-- 异常日志appender -->
+	<appender name="${APP_NAME}-error" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>${LOG_DIR}/${APP_NAME}-error.log</file>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>${LOG_DIR}/${APP_NAME}-error.%d{yyyy-MM-dd}.log</fileNamePattern>
+		</rollingPolicy>
+		<encoder>
+			<pattern>%d [%X{MDC_CLIENT_IP}/%X{MDC_SERVER_IP}/%X{MDC_REQUEST_ID}/%X{MDC_SESSION}] %-5p %c - %m%n</pattern>
+			<charset>UTF-8</charset>
+		</encoder>
+		<filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+			<level>ERROR</level>
+		</filter>
+	</appender>
+
+	<!-- 默认日志appender -->
+	<appender name="default" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>${LOG_DIR}/${APP_NAME}-default.log</file>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>${LOG_DIR}/${APP_NAME}-default.%d{yyyy-MM-dd}.log</fileNamePattern>
+		</rollingPolicy>
+		<encoder>
+			<pattern>%d [%X{MDC_CLIENT_IP}/%X{MDC_SERVER_IP}/%X{MDC_REQUEST_ID}/%X{MDC_SESSION}] %-5p %c - %m%n</pattern>
+			<charset>UTF-8</charset>
+		</encoder>
+	</appender>
+	
+	<!-- 摘要日志appender -->
+	<appender name="DIG" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>${LOG_DIR}/${APP_NAME}-digest.log</file>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>${LOG_DIR}/${APP_NAME}-digest.%d{yyyy-MM-dd}.log</fileNamePattern>
+		</rollingPolicy>
+		<encoder>
+			<pattern>%d [%X{MDC_CLIENT_IP}/%X{MDC_SERVER_IP}/%X{MDC_REQUEST_ID}/%X{MDC_SESSION}] %p %c - %msg%n</pattern>
+			<charset>UTF-8</charset>
+		</encoder>
+	</appender>
+	
+	<!-- 性能日志appender -->
+	<appender name="PERFORM" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>${LOG_DIR}/${APP_NAME}-perf.log</file>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>${LOG_DIR}/${APP_NAME}-perf.%d{yyyy-MM-dd}.log</fileNamePattern>
+		</rollingPolicy>
+		<encoder>
+			<pattern>%d [%X{MDC_CLIENT_IP}/%X{MDC_SERVER_IP}/%X{MDC_REQUEST_ID}/%X{MDC_SESSION}] %-5p %c - %m%n</pattern>
+			<charset>UTF-8</charset>
+		</encoder>
+	</appender>
+	
+	<!-- 摘要日志 -->
+	<logger name="DIG" level="INFO" additivity="false">
+		<appender-ref ref="DIG" />
+		<appender-ref ref="console"/>
+	</logger>
+	
+	<!-- 性能日志 -->
+	<logger name="PERFORM" level="INFO" additivity="false">
+		<appender-ref ref="PERFORM" />
+		<appender-ref ref="console"/>
+	</logger>
+	
+	<!-- 默认输出日志 -->
+	<root level="INFO">
+		<appender-ref ref="console" />
+		<appender-ref ref="default" />
+		<appender-ref ref="${APP_NAME}-error" />
+	</root>
+</configuration>

@@ -1,0 +1,14 @@
+{
+	"main": "com.yonyou.nccpub.gateway.webserver.WebServerVerticle",
+	"options" : {
+		"config" : {
+			"webserver_name": "nccloud-webserver-test",
+			"http.port": 8084,
+			"mongo_client": {
+			  "host": "120.24.253.42",
+			  "port": 27017,
+              "sessionKey": "231026af5c17b45ded371402"
+			}
+		}
+	}
+}

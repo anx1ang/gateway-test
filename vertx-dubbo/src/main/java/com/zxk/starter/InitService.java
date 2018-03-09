@@ -6,6 +6,8 @@ import com.zxk.entity.FacadeInfo;
 import com.zxk.entity.MethodInfo;
 import com.zxk.entity.MethodMap;
 import org.springframework.beans.BeansException;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
 
@@ -22,7 +24,17 @@ import java.util.Map;
 @Component
 public class InitService {
 
-    public void init(Map<String, Object> serviceCodeMap) throws BeansException {
+    @Autowired
+    private String host;
+    @Autowired
+    private String port;
+    @Autowired
+    private String dbName;
+
+    @Resource
+    private Map<String, Object> serviceCodeMap;
+
+    public void init() throws BeansException {
         System.out.println("开始加载自定义map");
         if (CollectionUtils.isEmpty(serviceCodeMap)) {
             System.out.println("自动以map为空,家加载结束");
@@ -52,5 +64,37 @@ public class InitService {
         MethodMap.setFacadeInfo(facadeInfo);
         MethodMap.setMethodMap(methodMap);
         System.out.println("自定义map加载完毕");
+    }
+
+    public void setHost(String host) {
+        this.host = host;
+    }
+
+    public void setPort(String port) {
+        this.port = port;
+    }
+
+    public void setDbName(String dbName) {
+        this.dbName = dbName;
+    }
+
+    public Map<String, Object> getServiceCodeMap() {
+        return serviceCodeMap;
+    }
+
+    public void setServiceCodeMap(Map<String, Object> serviceCodeMap) {
+        this.serviceCodeMap = serviceCodeMap;
+    }
+
+    public String getHost() {
+        return host;
+    }
+
+    public String getPort() {
+        return port;
+    }
+
+    public String getDbName() {
+        return dbName;
     }
 }

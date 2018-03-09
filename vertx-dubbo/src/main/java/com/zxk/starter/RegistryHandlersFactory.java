@@ -1,8 +1,6 @@
 package com.zxk.starter;
 
 import com.zxk.entity.MethodMap;
-import com.zxk.info.VerticleInfoServiceImpl;
-import com.zxk.starter.register.RegisterInfo;
 import com.zxk.vertx.address.EventBusAddress;
 import com.zxk.vertx.standard.StandardVertxUtil;
 import io.vertx.core.DeploymentOptions;
@@ -31,15 +29,13 @@ public class RegistryHandlersFactory {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(DeployVertxServer.class);
 
-    private VerticleInfoServiceImpl verticleInfoService = new VerticleInfoServiceImpl();
-
     public static final String BASE_ROUTER = "dubboServer";
 
     private List<String> facadeInfos;
 
     public RegistryHandlersFactory() {
-        Objects.requireNonNull(facadeInfos, "The router package address scan is empty.");
         this.facadeInfos = MethodMap.getFacadeInfo();
+        Objects.requireNonNull(facadeInfos, "The router package address scan is empty.");
     }
 
     /**

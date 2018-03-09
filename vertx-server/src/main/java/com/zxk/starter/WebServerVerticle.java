@@ -55,15 +55,6 @@ public class WebServerVerticle extends AbstractVerticle {
         config = context.config();
 
         // 如果有mongo_client配置,放入上下文当中.
-        if (config.containsKey("mongo_client")) {
-            JsonObject mongo_client = config.getJsonObject("mongo_client");
-            GlobalDataPool.INSTANCE.put("mongo_client_at_webserver", mongo_client);
-        }
-
-        if (config.containsKey(CONFIG_WEBSERVER_NAME_KEY)) {
-            GlobalDataPool.INSTANCE.put(CONFIG_WEBSERVER_NAME_KEY,
-                    config.getString(CONFIG_WEBSERVER_NAME_KEY));
-        }
 
         // For Debug - 默认关闭授权, 允许所有请求通过.
         boolean authEnabled = config.getBoolean(CONFIG_AUTHENTICATION, true);

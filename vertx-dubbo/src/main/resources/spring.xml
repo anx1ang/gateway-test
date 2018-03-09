@@ -8,16 +8,16 @@
                            http://www.springframework.org/schema/context/spring-context-3.0.xsd
                            ">
 
-    <bean id="initService" class="com.zxk.starter.InitService"/>
+    <context:property-placeholder ignore-unresolvable="true" location="classpath:mongodb.properties" />
 
-    <bean id="serviceSourceProperties" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
-        <property name="ignoreUnresolvablePlaceholders" value="true"/>
-        <property name="locations">
-            <list>
-                <value>classpath:dubbo.properties</value>
-            </list>
-        </property>
+
+    <bean id="initService" class="com.zxk.starter.InitService" init-method="init">
+        <property name="serviceCodeMap" ref="serviceCodeMap"/>
+        <property name="host" value="${mongo_host}"/>
+        <property name="port" value="${mongo_port}"/>
+        <property name="dbName" value="${mongo_db_name}"/>
     </bean>
+
 
     <bean id="serviceCodeMap" class="org.springframework.beans.factory.config.MapFactoryBean">
         <property name="targetMapClass" value="java.util.HashMap"/>

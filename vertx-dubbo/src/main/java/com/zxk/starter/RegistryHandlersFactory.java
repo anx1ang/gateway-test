@@ -1,5 +1,6 @@
 package com.zxk.starter;
 
+import com.zxk.entity.MethodMap;
 import com.zxk.info.VerticleInfoServiceImpl;
 import com.zxk.starter.register.RegisterInfo;
 import com.zxk.vertx.address.EventBusAddress;
@@ -36,9 +37,9 @@ public class RegistryHandlersFactory {
 
     private List<String> facadeInfos;
 
-    public RegistryHandlersFactory(List<String> facadeInfos) {
+    public RegistryHandlersFactory() {
         Objects.requireNonNull(facadeInfos, "The router package address scan is empty.");
-        this.facadeInfos = facadeInfos;
+        this.facadeInfos = MethodMap.getFacadeInfo();
     }
 
     /**
@@ -64,6 +65,7 @@ public class RegistryHandlersFactory {
                 } else {
                     busAddressPrefix = BASE_ROUTER + busAddressPrefix;
                 }
+
                 if (busAddressPrefix.endsWith("/")) {
                     busAddressPrefix = busAddressPrefix.substring(0, busAddressPrefix.length() - 1);
                 }
@@ -72,7 +74,7 @@ public class RegistryHandlersFactory {
                 }
                 /***** 每一个方法都部署一个verticle *****/
                 LOGGER.info("[Method] The register processor address is {}", EventBusAddress.positiveFormate(busAddressPrefix));
-                StandardVertxUtil.getStandardVertx().deployVerticle(new VerticleHandlerFactory( EventBusAddress.positiveFormate(busAddressPrefix)), new DeploymentOptions());
+                StandardVertxUtil.getStandardVertx().deployVerticle(new VerticleHandlerFactory(EventBusAddress.positiveFormate(busAddressPrefix)), new DeploymentOptions());
 
             } catch (Exception e) {
                 LOGGER.error("The {} Verticle register Service is fail，{}", e, e.getMessage());

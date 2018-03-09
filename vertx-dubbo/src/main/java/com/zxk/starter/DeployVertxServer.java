@@ -42,10 +42,10 @@ public class DeployVertxServer {
         StandardVertxUtil.getStandardVertx().deployVerticle(new WebServerVerticle(registerInfos), options);
     }
 
-    public static void startDeploy(List<String> facadeInfos) throws IOException {
+    public static void startDeploy() throws IOException {
         LOGGER.info("Start Deploy....");
         //StandardVertxUtil.getStandardVertx().deployVerticle(new RouterRegistryHandlersFactory(port));
-        new RegistryHandlersFactory(facadeInfos).registerVerticle();
+        new RegistryHandlersFactory().registerVerticle();
     }
 
     public static void startDeploy(Router router, int port) throws IOException {

@@ -1,6 +1,7 @@
 package com.zxk.starter;
 
 import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
 import com.zxk.entity.FacadeInfo;
 import com.zxk.entity.MethodInfo;
 import com.zxk.entity.MethodMap;
@@ -27,8 +28,11 @@ public class InitService {
             System.out.println("自动以map为空,家加载结束");
             return;
         }
-        Map<String, MethodInfo> methodMap = new HashMap<String, MethodInfo>();
+        Map<String, MethodInfo> methodMap = Maps.newHashMap();
+        List<String> facadeInfo = Lists.newArrayList();
+
         for (String serviceName : serviceCodeMap.keySet()) {
+            facadeInfo.add(serviceName);
             Object serviceInteface = serviceCodeMap.get(serviceName);
             Method[] methods = serviceInteface.getClass().getDeclaredMethods();
             for (Method method : methods) {
@@ -45,19 +49,8 @@ public class InitService {
                 System.out.println("已加载:" + serviceName + "." + methodName);
             }
         }
+        MethodMap.setFacadeInfo(facadeInfo);
         MethodMap.setMethodMap(methodMap);
         System.out.println("自定义map加载完毕");
-    }
-
-    public List<String> getFacades(Map<String, Object> serviceCodeMap) throws BeansException {
-        System.out.println("开始加载自定义map");
-        if (CollectionUtils.isEmpty(serviceCodeMap)) {
-            System.out.println("自动以map为空,家加载结束");
-            return null;
-        }
-        List<String> facades = Lists.newArrayList();
-        facades.addAll(serviceCodeMap.keySet());
-        System.out.println("自定义map加载完毕");
-        return facades;
     }
 }

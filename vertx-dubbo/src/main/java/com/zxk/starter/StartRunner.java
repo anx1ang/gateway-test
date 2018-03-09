@@ -1,13 +1,10 @@
 package com.zxk.starter;
 
 import com.google.common.collect.Lists;
-import com.zxk.entity.VerticleInfo;
 import com.zxk.starter.register.RegisterInfo;
 import com.zxk.vertx.standard.StandardVertxUtil;
-import io.vertx.core.DeploymentOptions;
 import io.vertx.core.Vertx;
 import io.vertx.core.VertxOptions;
-import io.vertx.core.json.JsonObject;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
@@ -50,6 +47,6 @@ public class StartRunner {
         registerInfoTest.setClassName("com.qudian.pay.account.api.facade.UserAccountFacade");
         registerInfos.add(registerInfoTest);
         DeployVertxServer.startServer(registerInfos);
-        DeployVertxServer.startDeploy(initService.getFacades(serviceCodeMap));
+        DeployVertxServer.startDeploy();
     }
 }

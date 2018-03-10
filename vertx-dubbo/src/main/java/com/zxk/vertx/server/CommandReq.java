@@ -1,4 +1,4 @@
-package com.zxk.starter;
+package com.zxk.vertx.server;
 
 import io.vertx.core.json.JsonObject;
 
@@ -12,7 +12,7 @@ public class CommandReq extends JsonObject {
 
     private final static String REQUESTBODY = "requestBody";
 
-    public CommandReq(String method, JsonObject requestBody) {
+    public CommandReq(String method, String requestBody) {
         put(METHOD, method);
         put(REQUESTBODY, requestBody);
     }
@@ -21,15 +21,15 @@ public class CommandReq extends JsonObject {
         return getString(METHOD);
     }
 
-    public JsonObject getRequestBody() {
-        return getJsonObject(REQUESTBODY);
+    public String getRequestBody() {
+        return getString(REQUESTBODY);
     }
 
-    public static CommandReq buildCommand(String method, JsonObject requestBody) {
+    public static CommandReq buildCommand(String method, String requestBody) {
         return new CommandReq(method, requestBody);
     }
 
     public static CommandReq buildCommand(JsonObject jsonObject) {
-        return buildCommand(jsonObject.getString(METHOD), jsonObject.getJsonObject(REQUESTBODY));
+        return buildCommand(jsonObject.getString(METHOD), jsonObject.getString(REQUESTBODY));
     }
 }

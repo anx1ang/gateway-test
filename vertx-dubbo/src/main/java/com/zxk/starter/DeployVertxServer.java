@@ -1,7 +1,8 @@
 package com.zxk.starter;
 
-import com.zxk.starter.register.RegisterInfo;
+import com.zxk.entity.RegisterInfo;
 import com.zxk.vertx.factory.RouterRegistryHandlersFactory;
+import com.zxk.vertx.server.WebServerVerticle;
 import com.zxk.vertx.standard.StandardVertxUtil;
 import io.vertx.core.DeploymentOptions;
 import io.vertx.core.json.JsonObject;
@@ -41,7 +42,7 @@ public class DeployVertxServer {
         StandardVertxUtil.getStandardVertx().deployVerticle(new WebServerVerticle(registerInfo), options);
     }
 
-    public static void startDeploy() throws IOException {
+    public static void startDeploy(){
         LOGGER.info("Start Deploy....");
         //StandardVertxUtil.getStandardVertx().deployVerticle(new RouterRegistryHandlersFactory(port));
         new RegistryHandlersFactory().registerVerticle();

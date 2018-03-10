@@ -11,7 +11,7 @@ public enum  ExceptionEnums {
     E10001("E10001","解析渠道密文失败"),
     E10002("E10002","调用PAY失败"),
     E10003("E10003","调用TRADE失败"),
-
+    E10004("E10004","request转化异常"),
 
     //    HTTP返回
     REQUEST_NULL("H0001","请求对象为空"),REQ_BIZCODE_NULL("H0002","bizCode为空"),

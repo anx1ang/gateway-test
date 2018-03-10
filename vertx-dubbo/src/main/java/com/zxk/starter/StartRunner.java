@@ -2,8 +2,8 @@ package com.zxk.starter;
 
 import com.alibaba.fastjson.JSON;
 import com.google.common.collect.Lists;
+import com.zxk.entity.RegisterInfo;
 import com.zxk.mongo.MongoDAO;
-import com.zxk.starter.register.RegisterInfo;
 import com.zxk.vertx.standard.StandardVertxUtil;
 import com.zxk.vertx.util.GlobalDataPool;
 import io.vertx.core.Vertx;
@@ -53,13 +53,8 @@ public class StartRunner {
         mongoDAO.find(new JsonObject(), result -> {
             if (result.succeeded()) {
                 List<RegisterInfo> registerInfo = JSON.parseArray(result.result().toString(), RegisterInfo.class);
-
                 DeployVertxServer.startServer(registerInfo);
-                try {
-                    DeployVertxServer.startDeploy();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+                DeployVertxServer.startDeploy();
             }
         });
 

@@ -1,4 +1,4 @@
-package com.zxk.starter;
+package com.zxk.vertx.server;
 
 /**
  * 授权开关.

@@ -1,6 +1,8 @@
 package com.zxk.entity;
 
 
+import io.vertx.core.json.JsonObject;
+
 import java.util.Date;
 
 /**
@@ -16,11 +18,6 @@ public class HttpRequestDto {
     private String bizCode;
 
     /**
-     * 密钥组名称
-     */
-    private String keyGroupName;
-
-    /**
      * 签名
      */
     private String sign;
@@ -34,11 +31,6 @@ public class HttpRequestDto {
      * 调用接口名称
      */
     private String serviceCode;
-
-    /**
-     * 请求者IP
-     */
-    private String ip;
 
     /**
      * 请求时间
@@ -78,27 +70,11 @@ public class HttpRequestDto {
         this.serviceCode = serviceCode;
     }
 
-    public String getIp() {
-        return ip;
-    }
-
-    public void setIp(String ip) {
-        this.ip = ip;
-    }
-
     public Date getRequestTime() {
         return requestTime;
     }
 
     public void setRequestTime(Date requestTime) {
         this.requestTime = requestTime;
-    }
-
-    public String getKeyGroupName() {
-        return keyGroupName;
-    }
-
-    public void setKeyGroupName(String keyGroupName) {
-        this.keyGroupName = keyGroupName;
     }
 }

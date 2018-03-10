@@ -1,20 +1,31 @@
-package com.zxk.starter;
+package com.zxk.vertx.server;
 
-import com.zxk.starter.register.RegisterInfo;
+import com.alibaba.fastjson.JSON;
+import com.zxk.entity.HttpRequestDto;
+import com.zxk.entity.RegisterInfo;
+import com.zxk.enums.BooleanEnum;
+import com.zxk.enums.EncryptTypeEnum;
+import com.zxk.enums.ExceptionEnums;
+import com.zxk.enums.SignTypeEnum;
+import com.zxk.exception.GatewayException;
+import com.zxk.utils.LogUtil;
+import com.zxk.utils.VerfyUtil;
 import io.vertx.core.Handler;
 import io.vertx.core.Vertx;
 import io.vertx.core.eventbus.DeliveryOptions;
 import io.vertx.core.http.HttpServerRequest;
 import io.vertx.core.http.HttpServerResponse;
+import io.vertx.core.json.Json;
 import io.vertx.core.json.JsonObject;
 import io.vertx.core.logging.Logger;
 import io.vertx.core.logging.LoggerFactory;
 import io.vertx.ext.web.RoutingContext;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * 针对每个注册请求,新建一个Dispatcher.
  * <p/>
- *
+ * <p>
  * zhangyef@yonyou.com on 2015-12-02.
  */
 public class Dispatcher implements Handler<RoutingContext> {
@@ -23,6 +34,11 @@ public class Dispatcher implements Handler<RoutingContext> {
     private Vertx vertx;
 
     private static final String appPrefix = "dubboServer.";
+
+
+    private static final String signType = SignTypeEnum.MD5.getValue();
+
+    private static final String encryptType = EncryptTypeEnum.AES.getValue();
 
     /**
      * Rest API的注册信息.
@@ -89,9 +105,19 @@ public class Dispatcher implements Handler<RoutingContext> {
         String address = appPrefix + registerMessage.getClassName();
         logger.info("Command ready send a message " + address);
         JsonObject jsonObject = context.getBodyAsJson();
-        CommandReq commandReq = CommandReq.buildCommand(getRequestPath(context), jsonObject);
+        HttpServerResponse response = context.response();
+        CommandReq commandReq = null;
+        try {
+            HttpRequestDto httpRequestDto = validate(jsonObject);
+            String requestBody = beforeHandler(httpRequestDto);
+            logger.info("收到业务线请求:{}", context);
+            commandReq = CommandReq.buildCommand(getRequestPath(context), requestBody);
+        } catch (GatewayException e) {
+            response.setStatusCode(200);
+            response.end(e.toString());
+        }
         vertx.eventBus().<JsonObject>send(address, commandReq, options, result -> {
-            HttpServerResponse response = context.response();
+
             response.putHeader("content-type", "application/json; charset=utf-8");
             if (result.succeeded()) {
                 JsonObject resultBody = result.result().body();
@@ -103,6 +129,50 @@ public class Dispatcher implements Handler<RoutingContext> {
                 response.end("处理失败");
             }
         });
+    }
+
+    private HttpRequestDto validate(JsonObject req) throws GatewayException {
+        if (req == null) {
+            throw new GatewayException(ExceptionEnums.REQUEST_NULL);
+        }
+        HttpRequestDto requestDto = JSON.parseObject(req.toString(), HttpRequestDto.class);
+        if (requestDto == null) {
+            throw new GatewayException(ExceptionEnums.E10004);
+        }
+        String bizCode = requestDto.getBizCode();
+        String serviceCode = requestDto.getServiceCode();
+
+        if (StringUtils.isBlank(bizCode)) {
+            throw new GatewayException(ExceptionEnums.REQ_BIZCODE_NULL);
+        }
+        if (StringUtils.isBlank(serviceCode)) {
+            throw new GatewayException(ExceptionEnums.REQ_SERVICECODE_NULL);
+        }
+        if (StringUtils.isBlank(requestDto.getContext())) {
+            throw new GatewayException(ExceptionEnums.REQ_CONTEXT_NULL);
+        }
+        if (BooleanEnum.TRUE.check(registerInfo.getNeedSign())) {
+            if (StringUtils.isBlank(requestDto.getSign())) {
+                throw new GatewayException(ExceptionEnums.REQ_SIGN_NULL);
+            }
+        }
+        return requestDto;
+    }
+
+    private String beforeHandler(HttpRequestDto req) throws GatewayException {
+        if (BooleanEnum.FALSE.check(registerInfo.getNeedSign())) {
+            return req.getContext();
+        }
+        if (!VerfyUtil.verfySign(signType, req.getContext(), req.getSign(), registerInfo.getSignKey())) {
+            String logSignKey = registerInfo.getSignKey();
+            if (StringUtils.isNotBlank(logSignKey) && logSignKey.length() >= 2) {
+                logSignKey = logSignKey.substring(logSignKey.length() - 2);
+            }
+            logger.error("验签失败,SignType:{0},Context:{1},Sign:{2},SignKey:{3},bizKey:{4}",
+                    signType, req.getContext(), req.getSign(), logSignKey, registerInfo.getEncryptKey());
+            throw new GatewayException(ExceptionEnums.UNSIGN_ERROR);
+        }
+        return VerfyUtil.decrypt(encryptType, req.getContext(), registerInfo.getEncryptKey());
     }
 
     private String getRequestPath(RoutingContext context) {

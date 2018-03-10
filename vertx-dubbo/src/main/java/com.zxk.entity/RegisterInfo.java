@@ -1,4 +1,5 @@
-package com.zxk.starter.register;
+
+package com.zxk.entity;
 
 import java.util.Date;
 
@@ -31,6 +32,22 @@ public class RegisterInfo {
     private String action;
 
     private String className;
+
+    /**
+     * 加签秘钥
+     */
+    private String signKey;
+
+
+    /**
+     * 是否加密
+     */
+    private Integer needSign;
+
+    /**
+     * 内容加密 秘钥
+     */
+    private String encryptKey;
 
     private String dispatcher; //分发器
 
@@ -86,6 +103,30 @@ public class RegisterInfo {
 
     public void setAction(String action) {
         this.action = action;
+    }
+
+    public String getSignKey() {
+        return signKey;
+    }
+
+    public void setSignKey(String signKey) {
+        this.signKey = signKey;
+    }
+
+    public String getEncryptKey() {
+        return encryptKey;
+    }
+
+    public void setEncryptKey(String encryptKey) {
+        this.encryptKey = encryptKey;
+    }
+
+    public Integer getNeedSign() {
+        return needSign;
+    }
+
+    public void setNeedSign(Integer needSign) {
+        this.needSign = needSign;
     }
 
     /**

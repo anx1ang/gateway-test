@@ -6,8 +6,8 @@ import com.zxk.entity.MethodInfo;
 import com.zxk.entity.MethodMap;
 import com.zxk.enums.ExceptionEnums;
 import com.zxk.exception.GatewayException;
-import com.zxk.starter.register.RegisterInfo;
 import com.zxk.vertx.result.ResultOb;
+import com.zxk.vertx.server.CommandReq;
 import com.zxk.vertx.standard.StandardVertxUtil;
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.Handler;
@@ -17,6 +17,7 @@ import io.vertx.core.json.JsonObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -49,8 +50,6 @@ public class VerticleHandlerFactory extends AbstractVerticle {
      * 针对verticle处理返回信息解析，主要针对错误信息识别成json数据，用户明文返回出去
      * 依赖与org.util中的exception
      *
-     * @param errorObj
-     * @param result
      * @return org.rayeye.vertx.result.ResultOb
      * @throws
      * @method setResult
@@ -58,30 +57,10 @@ public class VerticleHandlerFactory extends AbstractVerticle {
      * @version
      * @date 2017/9/20 18:34
      */
-    private ResultOb setResult(Throwable errorObj, ResultOb result) {
-        try {
-            JsonObject error = new JsonObject(errorObj.getMessage());
-            if (error.containsKey("httpStatus")) {
-                result.setCode(error.getInteger("httpStatus", 500));
-            }
-            /**** 服务正忙 默认是服务异常，为了友好性和调试方便，将错误信息解析后放到msg信息中 ***/
-            if (error.containsKey("code")) {
-                result.setData(error.getString("code", "服务正忙,稍后再试.").concat("[").concat(error.getString("detailMsg")).concat("]"));
-            }
-            if (error.containsKey("message")) {
-                result.setMsg(error.getString("message", "服务正忙,稍后再试."));
-            }
-        } catch (Exception ex) {
-            Pattern p = Pattern.compile("[\u4e00-\u9fa5]");
-            Matcher matcher = p.matcher(errorObj.getMessage());
-            if (matcher.find()) {
-                result.setMsg(errorObj.getMessage());
-                result.setData(errorObj.getLocalizedMessage());
-            } else {
-                result.setMsg("服务正忙,稍后再试.");
-                result.setData(errorObj.getLocalizedMessage());
-            }
-        }
+    private ResultOb setResult(GatewayException excption) {
+        ResultOb result = new ResultOb();
+        result.setCode(excption.errorCode);
+        result.setMsg(excption.getMessage());
         return result;
     }
 
@@ -97,33 +76,43 @@ public class VerticleHandlerFactory extends AbstractVerticle {
      */
     private Handler<Message<JsonObject>> msgHandler() {
         LOGGER.info(busAddress + "收到一条消息：");
-        ResultOb result = new ResultOb();
         return msg -> {
+            ResultOb result = new ResultOb();
             JsonObject message = null;
             try {
                 CommandReq commandReq = CommandReq.buildCommand(msg.body());
-                MethodInfo methodInfo = getMethod(busAddress, commandReq.getMethod());
-                Object params = null;
-                params = JSONObject.parseObject(commandReq.getRequestBody().toString(), methodInfo.getParam());
-                Object responseMessage = methodInfo.getMethodName().invoke(methodInfo.getInteface(), params);
-                if (responseMessage != null) {
-                    message = new JsonObject(Json.encode(responseMessage));
-                } else {
-                    result.setCode(500);
-                    result.setMsg("获取服务结果为空");
-                    msg.reply(new JsonObject(Json.encode(result)));
-                }
+                Object responseMessage = invokeDubbo(commandReq);
+                message = new JsonObject(Json.encode(responseMessage));
                 msg.reply(message);
-            } catch (JSONException je) {
-                LOGGER.error("jSON字符串转换对象异常", je);
-                result.setCode(500);
-                result.setMsg("服务正忙,稍后再试.");
+            } catch (GatewayException gwException) {
+                LOGGER.error("业务异常,e={}", gwException);
+                result = setResult(gwException);
             } catch (Exception e) {
-                result.setCode(500);
                 LOGGER.error("未知异常", e);
-                msg.reply(new JsonObject(Json.encode(result)));
+                result = setResult(new GatewayException(ExceptionEnums.QUERY_SERVICE_CODE_NULL));
             }
+            msg.reply(new JsonObject(Json.encode(result)));
         };
+    }
+
+    private Object invokeDubbo(CommandReq commandReq) throws Exception {
+        try {
+            MethodInfo methodInfo = getMethod(busAddress, commandReq.getMethod());
+            if (methodInfo == null) {
+                throw new GatewayException(ExceptionEnums.INVOKE_UNIMPL_METHOD);
+            }
+            Object params = JSONObject.parseObject(commandReq.getRequestBody(), methodInfo.getParam());
+            return methodInfo.getMethodName().invoke(methodInfo.getInteface(), params);
+        } catch (JSONException je) {
+            LOGGER.error("jSON字符串转换对象异常", je);
+            throw new GatewayException(ExceptionEnums.PARAM_PARSE_OBJECT_ERROR);
+        } catch (InvocationTargetException ite) {
+            LOGGER.error("调用第三方接口异常", ite);
+            throw new GatewayException(ExceptionEnums.INVOKE_METHOD_ERROR);
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new GatewayException(ExceptionEnums.INVOKE_METHOD_ERROR);
+        }
     }
 
     /**

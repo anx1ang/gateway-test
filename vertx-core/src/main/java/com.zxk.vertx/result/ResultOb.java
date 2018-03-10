@@ -18,7 +18,7 @@ import io.vertx.core.json.Json;
  *
  */
 public class ResultOb<T> {
-    private int code=200 ;//状态
+    private String code="200" ;//状态
     private String msg="SUCCESS";//消息
     private T data;
 
@@ -31,13 +31,12 @@ public class ResultOb<T> {
         return this;
     }
 
-    public int getCode() {
+    public String getCode() {
         return code;
     }
 
-    public ResultOb setCode(int code) {
+    public void setCode(String code) {
         this.code = code;
-        return this;
     }
 
     public String getMsg() {

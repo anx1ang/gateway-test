@@ -1,8 +1,7 @@
-package com.zxk.starter;
+package com.zxk.vertx.server;
 
-import com.zxk.starter.register.RegisterInfo;
+import com.zxk.entity.RegisterInfo;
 import io.vertx.core.AsyncResult;
-import io.vertx.core.Future;
 import io.vertx.core.Handler;
 import io.vertx.core.Vertx;
 import io.vertx.core.eventbus.DeliveryOptions;

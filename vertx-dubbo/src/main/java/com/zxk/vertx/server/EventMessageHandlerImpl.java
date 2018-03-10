@@ -1,12 +1,9 @@
-package com.zxk.starter;
+package com.zxk.vertx.server;
 
-import com.google.common.collect.Lists;
-import com.zxk.starter.register.RegisterInfo;
-import io.vertx.core.Future;
+import com.zxk.entity.RegisterInfo;
 import io.vertx.core.Handler;
 import io.vertx.core.Vertx;
 import io.vertx.core.http.HttpMethod;
-import io.vertx.core.json.JsonObject;
 import io.vertx.core.logging.Logger;
 import io.vertx.core.logging.LoggerFactory;
 import io.vertx.ext.web.Route;
@@ -41,26 +38,21 @@ public class EventMessageHandlerImpl implements EventMessageHandler {
     @Override
     public EventMessageHandler bridge(List<RegisterInfo> registerInfos) {
         for (RegisterInfo registerInfo : registerInfos) {
-            addRegister(registerInfo);
+            System.out.println("添加一个API接口: " + registerInfo.getUri());
+            // 单独注册
+            String url = registerInfo.getUri().replace(".","/");
+            url = url + "/" + registerInfo.getAction();
+            // 如果没有前导斜线,则自动添加.
+            url = url.startsWith("/") ? url : "/" + url;
+
+            Route route = addRoute(METHOD, url);
+
+            route.handler(dispatch(registerInfo));
+
+            System.out.println("开始监听 REST API 地址[" + url + "]");
+
         }
         return this;
-    }
-
-    private void addRegister(RegisterInfo registerInfo) {
-        System.out.println("添加一个API接口: " + registerInfo.getUri());
-        // 单独注册
-        String url = registerInfo.getUri();
-        // 如果没有前导斜线,则自动添加.
-        url = url.startsWith("/") ? url : "/" + url;
-
-        url = url + "/" + registerInfo.getAction();
-
-        Route route = addRoute(METHOD, url);
-
-        route.handler(dispatch(registerInfo));
-
-        System.out.println("开始监听 REST API 地址[" + url + "]");
-
     }
 
 

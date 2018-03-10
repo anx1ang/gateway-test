@@ -1,4 +1,4 @@
-package com.zxk.starter;
+package com.zxk.vertx.server;
 
 import io.vertx.core.shareddata.Shareable;
 import io.vertx.ext.web.Router;

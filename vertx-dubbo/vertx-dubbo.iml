@@ -22,5 +22,8 @@
     <orderEntry type="library" name="Maven: io.vertx:vertx-core:3.4.2" level="project" />
     <orderEntry type="library" name="Maven: io.vertx:vertx-web:3.4.2" level="project" />
     <orderEntry type="module" module-name="vertx-server" />
+    <orderEntry type="library" name="Maven: org.springframework.data:spring-data-mongodb:1.7.1.RELEASE" level="project" />
+    <orderEntry type="library" name="Maven: org.springframework.data:spring-data-commons:1.12.1.RELEASE" level="project" />
+    <orderEntry type="library" name="Maven: org.mongodb:mongo-java-driver:2.13.0" level="project" />
   </component>
 </module>

@@ -1,6 +1,7 @@
 package com.zxk.vertx.server;
 
 import com.zxk.entity.RegisterInfo;
+import com.zxk.mongo.MongoDAO;
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.Context;
 import io.vertx.core.Future;
@@ -49,6 +50,8 @@ public class WebServerVerticle extends AbstractVerticle {
 
     private List<RegisterInfo> registerInfos;
 
+    private MongoDAO mongoDAO;
+
     public WebServerVerticle(List<RegisterInfo> registerInfos) {
         this.registerInfos = registerInfos;
     }
@@ -57,6 +60,7 @@ public class WebServerVerticle extends AbstractVerticle {
     public void init(Vertx vertx, Context context) {
         super.init(vertx, context);
         config = context.config();
+        mongoDAO = MongoDAO.create(vertx);
 
         // 如果有mongo_client配置,放入上下文当中.
 

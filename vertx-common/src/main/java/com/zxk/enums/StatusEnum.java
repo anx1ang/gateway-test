@@ -8,7 +8,7 @@ import java.util.Map;
  */
 public enum StatusEnum {
 
-    YES(0, "可用"),
+    YES(1, "可用"),
     ;
 
     private String value;

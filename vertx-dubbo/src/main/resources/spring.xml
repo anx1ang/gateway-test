@@ -7,16 +7,14 @@
                            http://www.springframework.org/schema/context
                            http://www.springframework.org/schema/context/spring-context-3.0.xsd
                            ">
-
     <context:property-placeholder ignore-unresolvable="true" location="classpath:mongodb.properties" />
-
-
     <bean id="initService" class="com.zxk.starter.InitService" init-method="init">
         <property name="serviceCodeMap" ref="serviceCodeMap"/>
         <property name="host" value="${mongo_host}"/>
         <property name="port" value="${mongo_port}"/>
         <property name="dbName" value="${mongo_db_name}"/>
     </bean>
+
 
 
     <bean id="serviceCodeMap" class="org.springframework.beans.factory.config.MapFactoryBean">
@@ -44,4 +42,5 @@
            </property>
        </bean>-->
     <import resource="spring-gateway-consumer.xml"/>
+    <import resource="spring-mongodb.xml"/>
 </beans>

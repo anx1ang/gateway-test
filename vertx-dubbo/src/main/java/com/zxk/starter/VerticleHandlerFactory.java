@@ -75,8 +75,8 @@ public class VerticleHandlerFactory extends AbstractVerticle {
      * @date 2017/9/20 18:37
      */
     private Handler<Message<JsonObject>> msgHandler() {
-        LOGGER.info(busAddress + "收到一条消息：");
         return msg -> {
+            LOGGER.info(busAddress + ", 收到一条消息：" + msg.body());
             ResultOb result = new ResultOb();
             JsonObject message = null;
             try {

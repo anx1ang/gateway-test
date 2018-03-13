@@ -2,8 +2,10 @@ package com.zxk.starter;
 
 import com.alibaba.fastjson.JSON;
 import com.google.common.collect.Lists;
+import com.mongodb.Mongo;
 import com.zxk.entity.RegisterInfo;
 import com.zxk.mongo.MongoDAO;
+import com.zxk.mongo.RegisterInfoMongoHandler;
 import com.zxk.vertx.standard.StandardVertxUtil;
 import com.zxk.vertx.util.ConstantUtil;
 import com.zxk.vertx.util.GlobalDataPool;
@@ -14,6 +16,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.data.authentication.UserCredentials;
+import org.springframework.data.mongodb.core.MongoAction;
 
 import java.io.IOException;
 import java.time.Instant;
@@ -46,31 +50,21 @@ public class StartRunner {
 
         ApplicationContext context = new ClassPathXmlApplicationContext("spring.xml");
         InitService initService = (InitService) context.getBean("initService");
-
+        RegisterInfoMongoHandler mongoHandler = (RegisterInfoMongoHandler) context.getBean("registerInfoMongoHandler");
         // 设置使用日志类型
         StandardVertxUtil.getStandardVertx(Vertx.vertx(new VertxOptions()));
-
         JsonObject mongo_client = new JsonObject();
         mongo_client.put("host", initService.getHost());
         mongo_client.put("port", Integer.valueOf(initService.getPort()));
         mongo_client.put("db_name", initService.getDbName());
         GlobalDataPool.INSTANCE.put("mongo_client_at_webserver", mongo_client);
 
-        MongoDAO mongoDAO = MongoDAO.create(StandardVertxUtil.getStandardVertx());
         LOGGER.info("1.获取网关注册信息");
-        mongoDAO.find(ConstantUtil.RESTFUL_API_REG_INFO, new JsonObject(), result -> {
-            LOGGER.info("2.查询mongo,返回结果：result={}", result);
-            if (result.succeeded()) {
-                List<RegisterInfo> registerInfo = JSON.parseArray(result.result().toString(), RegisterInfo.class);
-                LOGGER.info("3.获取网关注册信息成功，数量：{}", registerInfo.size());
-                DeployVertxServer.startServer(registerInfo, port);
-                DeployVertxServer.startDeploy();
-            } else {
-                LOGGER.info("3.获取网关注册信息失败，e={}", result.cause());
-            }
-        });
-
-        LOGGER.info("启动main执行完毕！");
+        List<RegisterInfo> registerInfo = mongoHandler.queryNeedRegister();
+        LOGGER.info("2.获取网关注册信息成功，数量：{}", registerInfo.size());
+        DeployVertxServer.startServer(registerInfo, port);
+        DeployVertxServer.startDeploy();
+        LOGGER.info("3.启动main执行完毕！");
 
     }
 }

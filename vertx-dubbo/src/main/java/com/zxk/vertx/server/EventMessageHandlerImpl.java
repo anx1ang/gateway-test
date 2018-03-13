@@ -1,14 +1,15 @@
 package com.zxk.vertx.server;
 
 import com.zxk.entity.RegisterInfo;
+import com.zxk.starter.StartRunner;
 import io.vertx.core.Handler;
 import io.vertx.core.Vertx;
 import io.vertx.core.http.HttpMethod;
-import io.vertx.core.logging.Logger;
-import io.vertx.core.logging.LoggerFactory;
 import io.vertx.ext.web.Route;
 import io.vertx.ext.web.Router;
 import io.vertx.ext.web.RoutingContext;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.List;
 
@@ -16,7 +17,9 @@ import java.util.List;
  * Created by better/zhangye on 15/9/22.
  */
 public class EventMessageHandlerImpl implements EventMessageHandler {
-    protected Logger logger = LoggerFactory.getLogger(this.getClass().getName());
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(StartRunner.class);
+
 
     private static final String METHOD = "POST";
 
@@ -38,19 +41,15 @@ public class EventMessageHandlerImpl implements EventMessageHandler {
     @Override
     public EventMessageHandler bridge(List<RegisterInfo> registerInfos) {
         for (RegisterInfo registerInfo : registerInfos) {
-            System.out.println("添加一个API接口: " + registerInfo.getUri());
+            LOGGER.info("添加一个API接口: " + registerInfo.getUri());
             // 单独注册
-            String url = registerInfo.getUri().replace(".","/");
+            String url = registerInfo.getUri().replace(".", "/");
             url = url + "/" + registerInfo.getAction();
             // 如果没有前导斜线,则自动添加.
             url = url.startsWith("/") ? url : "/" + url;
-
             Route route = addRoute(METHOD, url);
-
+            LOGGER.info("开始监听 REST API 地址[" + url + "]");
             route.handler(dispatch(registerInfo));
-
-            System.out.println("开始监听 REST API 地址[" + url + "]");
-
         }
         return this;
     }

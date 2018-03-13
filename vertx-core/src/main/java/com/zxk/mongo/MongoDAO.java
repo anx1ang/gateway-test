@@ -8,6 +8,8 @@ import io.vertx.core.Handler;
 import io.vertx.core.Vertx;
 import io.vertx.core.json.JsonObject;
 import io.vertx.ext.mongo.MongoClient;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.List;
 import java.util.Objects;
@@ -16,6 +18,8 @@ import java.util.Objects;
  * zhangyef@yonyou.com on 2015-10-28.
  */
 public class MongoDAO {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(MongoDAO.class);
 
     private MongoClient client;
 
@@ -29,15 +33,14 @@ public class MongoDAO {
     private static MongoDAO instance = null;
 
     private MongoDAO(Vertx vertx) {
+        LOGGER.info("开始初始化mongo连接");
         if (GlobalDataPool.INSTANCE.containsKey(ConstantUtil.CONFIG_WEBSERVER_NAME_KEY)) {
             String webServerName =
                     GlobalDataPool.INSTANCE.<String>get(ConstantUtil.CONFIG_WEBSERVER_NAME_KEY);
             RESTFUL_API_REG_INFO = RESTFUL_API_REG_INFO + "_at_" + webServerName;
         }
-
         JsonObject config = GlobalDataPool.INSTANCE.<JsonObject>get("mongo_client_at_webserver");
-
-
+        LOGGER.info("mongo连接配置 ,config={}", config);
         if (config != null) {
             // Objects.requireNonNull(mongo_client.getString("host"), "mongo_client配置中没有包含host字段.");
             // Objects.requireNonNull(mongo_client.getInteger("port"), "mongo_client配置中没有包含port字段.");
@@ -51,6 +54,7 @@ public class MongoDAO {
         try {
             client = MongoClient.createShared(vertx, config);
         } catch (Exception e) {
+            LOGGER.info("创建mongo连接失败，e={}", e);
             isConfigured = false;
         }
     }

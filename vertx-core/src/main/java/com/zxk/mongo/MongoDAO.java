@@ -62,7 +62,7 @@ public class MongoDAO {
         return instance;
     }
 
-    public void insert(JsonObject data, Handler<AsyncResult<String>> resultHandler) {
+    public void insert(String collection, JsonObject data, Handler<AsyncResult<String>> resultHandler) {
         // 如果没有配置mongoClient
         if (!isConfigured) {
             if (resultHandler != null) {
@@ -71,7 +71,7 @@ public class MongoDAO {
             }
             return;
         }
-        client.insert(RESTFUL_API_REG_INFO, data, resultHandler);
+        client.insert(collection, data, resultHandler);
     }
 
 

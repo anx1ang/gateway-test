@@ -1,8 +1,6 @@
 package com.zxk.entity;
 
 
-import io.vertx.core.json.JsonObject;
-
 import java.util.Date;
 
 /**
@@ -11,6 +9,8 @@ import java.util.Date;
  * Created by wangyi on 2016/11/16.
  */
 public class HttpRequestDto {
+
+    private String requestNo;
 
     /**
      * 业务线编号
@@ -76,5 +76,13 @@ public class HttpRequestDto {
 
     public void setRequestTime(Date requestTime) {
         this.requestTime = requestTime;
+    }
+
+    public String getRequestNo() {
+        return requestNo;
+    }
+
+    public void setRequestNo(String requestNo) {
+        this.requestNo = requestNo;
     }
 }

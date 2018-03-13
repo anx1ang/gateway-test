@@ -19,7 +19,7 @@ public class DateUtil {
     }
 
     public static String formatToSecond(Date date) {
-        java.text.DateFormat format = new SimpleDateFormat("yyyyMMddHHmmss");
+        java.text.DateFormat format = new SimpleDateFormat("yyyyMMddHHmmsss");
         return format.format(date);
     }
 

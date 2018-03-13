@@ -2,12 +2,13 @@ package com.zxk.utils;
 
 import java.net.InetAddress;
 import java.net.NetworkInterface;
+import java.util.Date;
 import java.util.Enumeration;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * 唯一标示工具
- *
+ * <p>
  * Created by wangyi on 2016/11/22.
  */
 public class TraceUtil {
@@ -19,20 +20,22 @@ public class TraceUtil {
 
     /**
      * 获取tranceId
+     *
      * @return
      */
     public static String getTraceId() {
-        return getTraceId(IP_16, System.currentTimeMillis(), getNextId());
+        return getTraceId(IP_16, DateUtil.formatToSecond(new Date()), getNextId());
     }
 
     /**
      * 获取tranceId
-     * @param ip 十六进制IP地址
+     *
+     * @param ip        十六进制IP地址
      * @param timestamp 时间戳
-     * @param nextId 序号
+     * @param nextId    序号
      * @return
      */
-    private static String getTraceId(String ip, long timestamp, int nextId) {
+    private static String getTraceId(String ip, String timestamp, int nextId) {
         StringBuilder appender = new StringBuilder(25);
         appender.append(ip).append(timestamp).append(nextId);
         return appender.toString();
@@ -40,6 +43,7 @@ public class TraceUtil {
 
     /**
      * 把IP地址转换为十六进制
+     *
      * @param ip
      * @return
      */
@@ -64,6 +68,7 @@ public class TraceUtil {
 
     /**
      * 获取本机十进制IP地址
+     *
      * @return
      */
     private static String getInetAddress() {
@@ -112,4 +117,8 @@ public class TraceUtil {
 
     }
 
+
+    public static void main(String[] args) {
+        String value = TraceUtil.IP_16;
+    }
 }

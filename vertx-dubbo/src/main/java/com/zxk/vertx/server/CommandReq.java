@@ -8,6 +8,8 @@ import io.vertx.core.json.JsonObject;
  */
 public class CommandReq extends JsonObject {
 
+    private final static String REQUESTNO = "requestNo";
+
     private final static String METHOD = "method";
 
     private final static String REQUESTBODY = "requestBody";
@@ -25,11 +27,11 @@ public class CommandReq extends JsonObject {
         return getString(REQUESTBODY);
     }
 
-    public static CommandReq buildCommand(String method, String requestBody) {
+    public static CommandReq buildCommand(String method, String requestNo, String requestBody) {
         return new CommandReq(method, requestBody);
     }
 
     public static CommandReq buildCommand(JsonObject jsonObject) {
-        return buildCommand(jsonObject.getString(METHOD), jsonObject.getString(REQUESTBODY));
+        return buildCommand(jsonObject.getString(METHOD), jsonObject.getString(REQUESTBODY),jsonObject.getString(REQUESTNO));
     }
 }

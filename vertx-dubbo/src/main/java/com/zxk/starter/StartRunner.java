@@ -5,6 +5,7 @@ import com.google.common.collect.Lists;
 import com.zxk.entity.RegisterInfo;
 import com.zxk.mongo.MongoDAO;
 import com.zxk.vertx.standard.StandardVertxUtil;
+import com.zxk.vertx.util.ConstantUtil;
 import com.zxk.vertx.util.GlobalDataPool;
 import io.vertx.core.Vertx;
 import io.vertx.core.VertxOptions;
@@ -57,16 +58,19 @@ public class StartRunner {
 
         MongoDAO mongoDAO = MongoDAO.create(StandardVertxUtil.getStandardVertx());
         LOGGER.info("1.获取网关注册信息");
-        mongoDAO.find(new JsonObject(), result -> {
+        mongoDAO.find(ConstantUtil.RESTFUL_API_REG_INFO, new JsonObject(), result -> {
+            LOGGER.info("2.查询mongo,返回结果：result={}", result);
             if (result.succeeded()) {
                 List<RegisterInfo> registerInfo = JSON.parseArray(result.result().toString(), RegisterInfo.class);
-                LOGGER.info("2.获取网关注册信息成功，数量：{}", registerInfo.size());
+                LOGGER.info("3.获取网关注册信息成功，数量：{}", registerInfo.size());
                 DeployVertxServer.startServer(registerInfo, port);
                 DeployVertxServer.startDeploy();
             } else {
-                LOGGER.info("2.获取网关注册信息失败，e={}", result.cause());
+                LOGGER.info("3.获取网关注册信息失败，e={}", result.cause());
             }
         });
+
+        LOGGER.info("启动main执行完毕！");
 
     }
 }

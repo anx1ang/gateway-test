@@ -13,7 +13,7 @@ public class ConstantUtil {
     private static final String CONFIG_HTTP_PORT_KEY = "http.port";
     private static final String CONFIG_AUTHENTICATION = "auth.enabled";
 
-    public static final String REQUEST_DETAIL="request_detail_";
+    public static final String REQUEST_DETAIL = "request_detail_";
 
-
+    public static final String RESTFUL_API_REG_INFO = "ApiRegInfo";
 }

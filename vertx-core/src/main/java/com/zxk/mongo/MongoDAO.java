@@ -23,7 +23,7 @@ public class MongoDAO {
 
     private MongoClient client;
 
-    private String RESTFUL_API_REG_INFO = "ApiRegInfo";
+    private String RESTFUL_API_REG_INFO = ConstantUtil.RESTFUL_API_REG_INFO;
 
     private String SESSIONINFO = "sessionInfo";
 
@@ -90,7 +90,8 @@ public class MongoDAO {
         client.findOne(RESTFUL_API_REG_INFO, query, new JsonObject(), resultHandler);
     }
 
-    public void find(JsonObject query, Handler<AsyncResult<List<JsonObject>>> resultHandler) {
+    public void find(String collection, JsonObject query, Handler<AsyncResult<List<JsonObject>>> resultHandler) {
+        LOGGER.info("mongoDB查询入口，isConfigured={},query={}", isConfigured, query);
         if (!isConfigured) {
             if (resultHandler != null) {
                 resultHandler.handle(Future
@@ -98,7 +99,16 @@ public class MongoDAO {
             }
             return;
         }
-        client.find(RESTFUL_API_REG_INFO, query, resultHandler);
+        try {
+            LOGGER.info("mongoDB开始查询，collection={}", collection);
+            client.find(collection, query, resultHandler);
+            LOGGER.info("mongoDB查询结束,resultHandler");
+        } catch (Exception e) {
+            LOGGER.info("查询数据库异常，e={}", e);
+            resultHandler.handle(Future
+                    .failedFuture("query db exception ,e=" + e.getMessage()));
+
+        }
     }
 
     /**

@@ -1,113 +1,121 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- 根节点，不进行定时扫描 -->
 <configuration scan="false">
+    <property name="appName" value="vertx-gateway"/>
+    <property name="filePrefix" value="${log.dir}"></property>
+    <!-- 上下文名字 -->
+    <contextName>${appName}</contextName>
+    <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] [%-5level] [%msg]%n</pattern>
+        </encoder>
+    </appender>
 
-	<!-- 日志文件路径 -->
-	<property name="LOG_DIR" value="${data.logback.dir}" />
+    <appender name="business-info" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${filePrefix}/business-info/business-info.log</file>
+        <!-- 追加 -->
+        <append>true</append>
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>INFO</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${filePrefix}/business-info/business-info.%d{yyyyMMdd}.log.zip</fileNamePattern>
+        </rollingPolicy>
+        <!-- 日志格式化 -->
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] [%-5level] [%X{MDC_CLIENT_IP}/%X{MDC_REQUEST_ID}] [%msg]%n</pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+    </appender>
 
-	<!-- 应用名 -->
-	<property name="APP_NAME" value="${dubbo.application.name}"/>
-	
-	<!-- 控制台appender -->
-	<appender name="console" class="ch.qos.logback.core.ConsoleAppender">
-		<encoder>
-			<pattern>%d [%X{MDC_CLIENT_IP}/%X{MDC_SERVER_IP}/%X{MDC_REQUEST_ID}/%X{MDC_SESSION}] %-5p %c - %m%n</pattern>
-		</encoder>
-	</appender>
-	
-	<!-- 业务日志appender -->
-	<appender name="${APP_NAME}-biz" class="ch.qos.logback.core.rolling.RollingFileAppender">
-		<file>${LOG_DIR}/${APP_NAME}-biz.log</file>
-		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-			<fileNamePattern>${LOG_DIR}/${APP_NAME}-biz.%d{yyyy-MM-dd}.log</fileNamePattern>
-		</rollingPolicy>
-		<encoder>
-			<pattern>%d [%X{MDC_CLIENT_IP}/%X{MDC_SERVER_IP}/%X{MDC_REQUEST_ID}/%X{MDC_SESSION}] %-5p %c - %m%n</pattern>
-			<charset>UTF-8</charset>
-		</encoder>
-		<filter class="ch.qos.logback.classic.filter.ThresholdFilter">
-			<level>INFO</level>
-		</filter>
-	</appender>
-	
-	<!-- dao日志appender -->
-	<appender name="${APP_NAME}-dao" class="ch.qos.logback.core.rolling.RollingFileAppender">
-		<file>${LOG_DIR}/${APP_NAME}-dao.log</file>
-		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-			<fileNamePattern>${LOG_DIR}/${APP_NAME}-dao.%d{yyyy-MM-dd}.log</fileNamePattern>
-		</rollingPolicy>
-		<encoder>
-			<pattern>%d [%X{MDC_CLIENT_IP}/%X{MDC_SERVER_IP}/%X{MDC_REQUEST_ID}/%X{MDC_SESSION}] %p %c - %msg%n</pattern>
-			<charset>UTF-8</charset>
-		</encoder>
-	</appender>
-	
-	<!-- 异常日志appender -->
-	<appender name="${APP_NAME}-error" class="ch.qos.logback.core.rolling.RollingFileAppender">
-		<file>${LOG_DIR}/${APP_NAME}-error.log</file>
-		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-			<fileNamePattern>${LOG_DIR}/${APP_NAME}-error.%d{yyyy-MM-dd}.log</fileNamePattern>
-		</rollingPolicy>
-		<encoder>
-			<pattern>%d [%X{MDC_CLIENT_IP}/%X{MDC_SERVER_IP}/%X{MDC_REQUEST_ID}/%X{MDC_SESSION}] %-5p %c - %m%n</pattern>
-			<charset>UTF-8</charset>
-		</encoder>
-		<filter class="ch.qos.logback.classic.filter.ThresholdFilter">
-			<level>ERROR</level>
-		</filter>
-	</appender>
+    <!-- 业务异常日志appender -->
+    <appender name="business-error" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${filePrefix}/business-error/business-error.log</file>
+        <append>true</append>
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>ERROR</level>
+        </filter>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${filePrefix}/business-error/business-error.%d{yyyyMMdd}.log</fileNamePattern>
+        </rollingPolicy>
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] [%-5level] [%X{MDC_CLIENT_IP}/%X{MDC_REQUEST_ID}] [%msg]%n</pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+    </appender>
 
-	<!-- 默认日志appender -->
-	<appender name="default" class="ch.qos.logback.core.rolling.RollingFileAppender">
-		<file>${LOG_DIR}/${APP_NAME}-default.log</file>
-		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-			<fileNamePattern>${LOG_DIR}/${APP_NAME}-default.%d{yyyy-MM-dd}.log</fileNamePattern>
-		</rollingPolicy>
-		<encoder>
-			<pattern>%d [%X{MDC_CLIENT_IP}/%X{MDC_SERVER_IP}/%X{MDC_REQUEST_ID}/%X{MDC_SESSION}] %-5p %c - %m%n</pattern>
-			<charset>UTF-8</charset>
-		</encoder>
-	</appender>
-	
-	<!-- 摘要日志appender -->
-	<appender name="DIG" class="ch.qos.logback.core.rolling.RollingFileAppender">
-		<file>${LOG_DIR}/${APP_NAME}-digest.log</file>
-		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-			<fileNamePattern>${LOG_DIR}/${APP_NAME}-digest.%d{yyyy-MM-dd}.log</fileNamePattern>
-		</rollingPolicy>
-		<encoder>
-			<pattern>%d [%X{MDC_CLIENT_IP}/%X{MDC_SERVER_IP}/%X{MDC_REQUEST_ID}/%X{MDC_SESSION}] %p %c - %msg%n</pattern>
-			<charset>UTF-8</charset>
-		</encoder>
-	</appender>
-	
-	<!-- 性能日志appender -->
-	<appender name="PERFORM" class="ch.qos.logback.core.rolling.RollingFileAppender">
-		<file>${LOG_DIR}/${APP_NAME}-perf.log</file>
-		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-			<fileNamePattern>${LOG_DIR}/${APP_NAME}-perf.%d{yyyy-MM-dd}.log</fileNamePattern>
-		</rollingPolicy>
-		<encoder>
-			<pattern>%d [%X{MDC_CLIENT_IP}/%X{MDC_SERVER_IP}/%X{MDC_REQUEST_ID}/%X{MDC_SESSION}] %-5p %c - %m%n</pattern>
-			<charset>UTF-8</charset>
-		</encoder>
-	</appender>
-	
-	<!-- 摘要日志 -->
-	<logger name="DIG" level="INFO" additivity="false">
-		<appender-ref ref="DIG" />
-		<appender-ref ref="console"/>
-	</logger>
-	
-	<!-- 性能日志 -->
-	<logger name="PERFORM" level="INFO" additivity="false">
-		<appender-ref ref="PERFORM" />
-		<appender-ref ref="console"/>
-	</logger>
-	
-	<!-- 默认输出日志 -->
-	<root level="INFO">
-		<appender-ref ref="console" />
-		<appender-ref ref="default" />
-		<appender-ref ref="${APP_NAME}-error" />
-	</root>
+
+
+    <!-- 参数校验appender -->
+    <appender name="validate-error" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${filePrefix}/validate-error/validate-error.log</file>
+        <append>true</append>
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>INFO</level>
+        </filter>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${filePrefix}/validate-error/validate-error.%d{yyyyMMdd}.log</fileNamePattern>
+        </rollingPolicy>
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] [%-5level] [%X{MDC_CLIENT_IP}/%X{MDC_REQUEST_ID}] [%msg]%n</pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+    </appender>
+
+
+
+    <!-- 性能日志appender -->
+    <appender name="performance" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${filePrefix}/performance/performance.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${filePrefix}/performance/performance.%d{yyyy-MM-dd}.log.zip</fileNamePattern>
+            <maxHistory>30</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <pattern>%d [%X{MDC_CLIENT_IP}/%X{MDC_SERVER_IP}/%X{MDC_REQUEST_ID}] %-5p %c - %m%n</pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+    </appender>
+
+    <appender name="system-error" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${filePrefix}/system-error/system-error.log</file>
+        <append>true</append>
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>INFO</level>
+        </filter>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${filePrefix}/system-error/system-error.%d{yyyyMMdd}.log</fileNamePattern>
+        </rollingPolicy>
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] [%-5level] [%X{MDC_CLIENT_IP}/%X{MDC_REQUEST_ID}] [%msg]%n</pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+    </appender>
+
+
+    <!-- 参数校验 -->
+    <logger name="validate-error" level="INFO" additivity="false">
+        <appender-ref ref="validate-error"/>
+    </logger>
+
+    <!-- 系统异常 -->
+    <logger name="system-error" level="INFO" additivity="false">
+        <appender-ref ref="system-error"/>
+    </logger>
+
+    <!-- 性能日志 -->
+    <logger name="PERFORM" level="INFO" additivity="false">
+        <appender-ref ref="performance" />
+    </logger>
+
+    <logger name="org.springframework" level="INFO"/>
+    <logger name="org.mybatis" level="INFO"/>
+
+    <root level="INFO">
+        <!--<appender-ref ref="console"/>-->
+        <appender-ref ref="business-info"/>
+        <appender-ref ref="business-error"/>
+    </root>
 </configuration>

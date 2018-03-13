@@ -35,7 +35,7 @@ public class DeployVertxServer {
     private static final Logger LOGGER = LoggerFactory.getLogger(DeployVertxServer.class);
 
     public static void startServer(List<RegisterInfo> registerInfo) {
-        int port = 8081;
+        int port = 9011;
         JsonObject deployConfig = new JsonObject();
         deployConfig.put(CONFIG_HTTP_PORT_KEY, port);
         DeploymentOptions options = new DeploymentOptions().setConfig(deployConfig);

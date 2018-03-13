@@ -34,15 +34,16 @@ public class DeployVertxServer {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(DeployVertxServer.class);
 
-    public static void startServer(List<RegisterInfo> registerInfo) {
-        int port = 9011;
+    public static void startServer(List<RegisterInfo> registerInfo, Integer port) {
+        LOGGER.info("Start Deploy WebServerVerticle....,prot={}", port);
+
         JsonObject deployConfig = new JsonObject();
         deployConfig.put(CONFIG_HTTP_PORT_KEY, port);
         DeploymentOptions options = new DeploymentOptions().setConfig(deployConfig);
         StandardVertxUtil.getStandardVertx().deployVerticle(new WebServerVerticle(registerInfo), options);
     }
 
-    public static void startDeploy(){
+    public static void startDeploy() {
         LOGGER.info("Start Deploy....");
         //StandardVertxUtil.getStandardVertx().deployVerticle(new RouterRegistryHandlersFactory(port));
         new RegistryHandlersFactory().registerVerticle();

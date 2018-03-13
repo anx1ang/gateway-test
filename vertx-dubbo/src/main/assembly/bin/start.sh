@@ -3,7 +3,7 @@
 cd $DEPLOY_DIR
 
 SERVER_NAME=gateway-server
-SERVER_PORT=9088
+SERVER_PORT=9011
 LOGS_FILE=/opt/logs
 
 
@@ -49,9 +49,9 @@ LIB_DIR=$DEPLOY_DIR/lib
 LIB_JARS=`ls $LIB_DIR|grep .jar|awk '{print "'$LIB_DIR'/"$0}'|tr "\n" ":"`
 
 #
-LOG_DIR="/data/logs/order-server"
+LOG_DIR="/data/logs/gateway-server"
 JAVA_OPTS=" -Dlog.dir=$LOG_DIR  -Djava.net.preferIPv4Stack=true"
-JAVA_OPTS="$JAVA_OPTS -server -Xmx4096m -Xms4096m -Xmn2560m -XX:SurvivorRatio=6 -XX:PermSize=256m -XX:MaxPermSize=256m"
+JAVA_OPTS="$JAVA_OPTS -server -Xmx1024m -Xms1024m -Xmn512m -XX:SurvivorRatio=6 -XX:PermSize=256m -XX:MaxPermSize=256m"
 JAVA_OPTS="$JAVA_OPTS -XX:+UseConcMarkSweepGC -XX:+UseParNewGC -XX:+PrintGCTimeStamps -XX:+PrintGCDateStamps -XX:+PrintGCDetails -Xloggc:$LOG_DIR/gc.log"
 JAVA_OPTS="$JAVA_OPTS -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=$LOG_DIR/"
 

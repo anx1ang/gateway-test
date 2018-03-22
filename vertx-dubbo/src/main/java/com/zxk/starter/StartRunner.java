@@ -1,13 +1,8 @@
 package com.zxk.starter;
 
-import com.alibaba.fastjson.JSON;
-import com.google.common.collect.Lists;
-import com.mongodb.Mongo;
 import com.zxk.entity.RegisterInfo;
-import com.zxk.mongo.MongoDAO;
 import com.zxk.mongo.RegisterInfoMongoHandler;
 import com.zxk.vertx.standard.StandardVertxUtil;
-import com.zxk.vertx.util.ConstantUtil;
 import com.zxk.vertx.util.GlobalDataPool;
 import io.vertx.core.Vertx;
 import io.vertx.core.VertxOptions;
@@ -16,13 +11,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-import org.springframework.data.authentication.UserCredentials;
-import org.springframework.data.mongodb.core.MongoAction;
 
-import java.io.IOException;
-import java.time.Instant;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Vertx main启动

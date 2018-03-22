@@ -33,34 +33,6 @@ public class SenderInvokeHandler {
     private static final String DEFAULT_METHOD_COLUMN="method";
     private static final String DEFAULT_METHOD="execute";
     /**
-     * 发送业务处理请求(适用于集群;本地vertx不推荐，需要使用反射)
-     * @method      sendProcess
-     * @author      Neil.Zhou
-     * @param ctx router上下文
-     * @param processor 对应的URI路由资源
-     * @param params
-     * @return      void
-     * @exception
-     * @date        2017/9/20 23:18
-     */
-    public static void sendProcess(RoutingContext ctx, String processor, JsonObject params){
-        StandardVertxUtil.getStandardVertx().eventBus().<JsonObject>send(EventBusAddress.positiveFormate(processor),params,new DeliveryOptions().addHeader(DEFAULT_METHOD_COLUMN,DEFAULT_METHOD).setSendTimeout(TIME_OUT), resultBody -> {
-            if (resultBody.failed()) {
-                LOGGER.error("Fail for the process.");
-                ctx.fail(resultBody.cause());
-                return;
-            }
-            JsonObject result = resultBody.result().body();
-            if (result == null) {
-                LOGGER.error("Fail by result is null");
-                ctx.fail(500);
-                return;
-            }
-            ctx.response().setStatusCode(200);
-            ctx.response().end(result.encode());
-        });
-    }
-    /**
      * 发送业务处理请求(适用于集群、本地vertx)
      * @method      sendProcess
      * @author      Neil.Zhou
@@ -95,7 +67,6 @@ public class SenderInvokeHandler {
      * 可自定义回调函数(异步)
      * @method      sendProcess
      * @author      Neil.Zhou
-     * @param ctx router上下文
      * @param processor 对应的URI路由资源
      * @param method  处理器中的方法
      * @param params 请求参数
@@ -104,7 +75,7 @@ public class SenderInvokeHandler {
      * @exception
      * @date        2017/9/20 23:28
      */
-    public static void sendProcess(RoutingContext ctx, String processor, String method, JsonObject params, Handler<AsyncResult<Message<JsonObject>>> replyHandler){
+    public static void sendProcess(String processor, String method, JsonObject params, Handler<AsyncResult<Message<JsonObject>>> replyHandler){
         StandardVertxUtil.getStandardVertx().eventBus().<JsonObject>send(EventBusAddress.positiveFormate(processor),params,new DeliveryOptions().addHeader(DEFAULT_METHOD_COLUMN,method).setSendTimeout(TIME_OUT), replyHandler);
     }
     /**

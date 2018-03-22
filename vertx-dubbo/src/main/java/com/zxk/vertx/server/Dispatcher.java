@@ -10,13 +10,12 @@ import com.zxk.enums.SignTypeEnum;
 import com.zxk.exception.GatewayException;
 import com.zxk.mongo.MongoDAO;
 import com.zxk.utils.DateUtil;
-import com.zxk.utils.LogUtil;
 import com.zxk.utils.TraceUtil;
 import com.zxk.utils.VerfyUtil;
+import com.zxk.vertx.http.SenderInvokeHandler;
 import com.zxk.vertx.standard.StandardVertxUtil;
 import io.vertx.core.Handler;
 import io.vertx.core.Vertx;
-import io.vertx.core.eventbus.DeliveryOptions;
 import io.vertx.core.http.HttpServerRequest;
 import io.vertx.core.http.HttpServerResponse;
 import io.vertx.core.json.Json;
@@ -110,8 +109,6 @@ public class Dispatcher implements Handler<RoutingContext> {
     private void travelWithCommand(RegisterInfo registerMessage, RoutingContext context) {
         logger.debug("Using [Command] mode to deliver primitive register message: " + registerMessage);
         logger.info("WebServer is delivering request to target address:" + registerMessage.getAddress());
-        DeliveryOptions options = CommandBuilder.createDeliveryOptions(context);
-
         String address = appPrefix + registerMessage.getClassName();
         logger.info("Command ready send a message " + address);
         JsonObject jsonObject = context.getBodyAsJson();
@@ -130,8 +127,7 @@ public class Dispatcher implements Handler<RoutingContext> {
         buildRequestInfo(httpRequestDto);
         logger.info("收到业务线请求:{}", context);
         commandReq = CommandReq.buildCommand(getRequestPath(context), httpRequestDto.getRequestNo(), requestBody);
-        vertx.eventBus().<JsonObject>send(address, commandReq, options, result -> {
-
+        SenderInvokeHandler.sendProcess(address, commandReq.getMethod(), commandReq, result -> {
             response.putHeader("content-type", "application/json; charset=utf-8");
             if (result.succeeded()) {
                 JsonObject resultBody = result.result().body();

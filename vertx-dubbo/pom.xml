@@ -12,7 +12,7 @@
     <artifactId>vertx-dubbo</artifactId>
 
     <properties>
-        <vertx.version>3.3.2</vertx.version>
+        <vertx.version>3.5.1</vertx.version>
     </properties>
 
     <dependencies>

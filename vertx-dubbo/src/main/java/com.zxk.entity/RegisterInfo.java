@@ -10,13 +10,9 @@ public class RegisterInfo {
     public static final String COMMAND = "command";
 
     /**
-     * (必选)
-     * <p/>
-     * 事件总线地址, HTTP请求的目标地址, 也是应用的监听地址.
-     * 该地址既可以为具体的事件总线地址, 也可以是一个带参数的地址模板.
+     * 系统来源
      */
-    private String address;
-
+    private String systemSource;
     /**
      * (必选)
      * <p/>
@@ -33,44 +29,24 @@ public class RegisterInfo {
 
     private String className;
 
-    /**
-     * 加签秘钥
-     */
-    private String signKey;
-
-
-    /**
-     * 是否加密
-     */
-    private Integer needSign;
-
-    /**
-     * 内容加密 秘钥
-     */
-    private String encryptKey;
-
     private String dispatcher; //分发器
 
     private Date time; //注册时间
+
+    public String getSystemSource() {
+        return systemSource;
+    }
+
+    public void setSystemSource(String systemSource) {
+        this.systemSource = systemSource;
+    }
 
     //无参构造函数，用于从JSON反序列化
     public RegisterInfo() {
     }
 
     public RegisterInfo(String address, String uri, String method) {
-        this.address = address;
         this.uri = uri;
-    }
-
-    /**
-     * @return {@link #address}
-     */
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
     }
 
     public String getUri() {
@@ -105,29 +81,6 @@ public class RegisterInfo {
         this.action = action;
     }
 
-    public String getSignKey() {
-        return signKey;
-    }
-
-    public void setSignKey(String signKey) {
-        this.signKey = signKey;
-    }
-
-    public String getEncryptKey() {
-        return encryptKey;
-    }
-
-    public void setEncryptKey(String encryptKey) {
-        this.encryptKey = encryptKey;
-    }
-
-    public Integer getNeedSign() {
-        return needSign;
-    }
-
-    public void setNeedSign(Integer needSign) {
-        this.needSign = needSign;
-    }
 
     /**
      * @return 注册信息的hashcode.
@@ -151,7 +104,6 @@ public class RegisterInfo {
     public String toString() {
         return "RegisterInfo{" +
                 "action='" + action + '\'' +
-                ", address='" + address + '\'' +
                 ", uri='" + uri + '\'' +
                 ", dispatcher='" + dispatcher + '\'' +
                 ", time=" + time +

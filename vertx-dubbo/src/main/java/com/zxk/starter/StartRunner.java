@@ -1,7 +1,10 @@
 package com.zxk.starter;
 
 import com.zxk.entity.RegisterInfo;
+import com.zxk.entity.ServiceInfo;
+import com.zxk.entity.SystemSourceInfo;
 import com.zxk.mongo.RegisterInfoMongoHandler;
+import com.zxk.mongo.SystemSourceInfoMongoHandler;
 import com.zxk.vertx.standard.StandardVertxUtil;
 import com.zxk.vertx.util.GlobalDataPool;
 import io.vertx.core.Vertx;
@@ -41,6 +44,7 @@ public class StartRunner {
         ApplicationContext context = new ClassPathXmlApplicationContext("spring.xml");
         InitService initService = (InitService) context.getBean("initService");
         RegisterInfoMongoHandler mongoHandler = (RegisterInfoMongoHandler) context.getBean("registerInfoMongoHandler");
+        SystemSourceInfoMongoHandler sourceInfoHandler = (SystemSourceInfoMongoHandler) context.getBean("systemSourceInfoMongoHandler");
         // 设置使用日志类型
         StandardVertxUtil.getStandardVertx(Vertx.vertx(new VertxOptions()));
         JsonObject mongo_client = new JsonObject();
@@ -51,8 +55,10 @@ public class StartRunner {
 
         LOGGER.info("1.获取网关注册信息");
         List<RegisterInfo> registerInfo = mongoHandler.queryNeedRegister();
+        List<SystemSourceInfo> systemSourceInfo = sourceInfoHandler.queryAllSystemSource();
+        List<ServiceInfo> serviceInfo = initService.initRegisterInfo(systemSourceInfo, registerInfo);
         LOGGER.info("2.获取网关注册信息成功，数量：{}", registerInfo.size());
-        DeployVertxServer.startServer(registerInfo, port);
+        DeployVertxServer.startServer(serviceInfo, port);
         DeployVertxServer.startDeploy();
         LOGGER.info("3.启动main执行完毕！");
 

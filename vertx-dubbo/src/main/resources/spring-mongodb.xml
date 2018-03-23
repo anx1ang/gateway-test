@@ -27,4 +27,8 @@
     <bean id="registerInfoMongoHandler" class="com.zxk.mongo.RegisterInfoMongoHandler">
         <constructor-arg name="mongoTemplate" ref="mongoTemplate"/>
     </bean>
+
+    <bean id="systemSourceInfoMongoHandler" class="com.zxk.mongo.SystemSourceInfoMongoHandler">
+        <constructor-arg name="mongoTemplate" ref="mongoTemplate"/>
+    </bean>
 </beans>

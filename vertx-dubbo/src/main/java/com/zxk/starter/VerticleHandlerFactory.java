@@ -3,9 +3,9 @@ package com.zxk.starter;
 import com.alibaba.fastjson.JSONException;
 import com.alibaba.fastjson.JSONObject;
 import com.zxk.entity.MethodInfo;
-import com.zxk.entity.MethodMap;
 import com.zxk.enums.ExceptionEnums;
 import com.zxk.exception.GatewayException;
+import com.zxk.sharedData.LocalDataMap;
 import com.zxk.vertx.result.ResultOb;
 import com.zxk.vertx.server.CommandReq;
 import com.zxk.vertx.standard.StandardVertxUtil;
@@ -18,8 +18,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.lang.reflect.InvocationTargetException;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 /**
  * verticle 处理器工厂
@@ -137,7 +135,7 @@ public class VerticleHandlerFactory extends AbstractVerticle {
     private static MethodInfo getMethod(String busAddress, String method) {
         String className = busAddress.substring(busAddress.indexOf(".") + 1, busAddress.length());
         String methodName = className.concat(".").concat(method);
-        return MethodMap.getMethodMap().get(methodName);
+        return LocalDataMap.getMethodMap().get(methodName);
     }
 
 }

@@ -3,10 +3,10 @@ package com.zxk.vertx.server;
 import com.alibaba.fastjson.JSON;
 import com.zxk.entity.HttpRequestDto;
 import com.zxk.entity.RegisterInfo;
+import com.zxk.entity.ServiceInfo;
+import com.zxk.entity.SystemSourceInfo;
 import com.zxk.enums.BooleanEnum;
-import com.zxk.enums.EncryptTypeEnum;
 import com.zxk.enums.ExceptionEnums;
-import com.zxk.enums.SignTypeEnum;
 import com.zxk.exception.GatewayException;
 import com.zxk.mongo.MongoDAO;
 import com.zxk.utils.DateUtil;
@@ -27,6 +27,7 @@ import org.apache.commons.lang3.StringUtils;
 
 import java.util.Date;
 
+import static com.zxk.vertx.util.ConstantUtil.DOT;
 import static com.zxk.vertx.util.ConstantUtil.REQUEST_DETAIL;
 
 /**
@@ -40,27 +41,24 @@ public class Dispatcher implements Handler<RoutingContext> {
 
     private Vertx vertx;
 
-    private static final String appPrefix = "dubboServer.";
-
     private MongoDAO mongoDAO;
-
-    private static final String signType = SignTypeEnum.MD5.getValue();
-
-    private static final String encryptType = EncryptTypeEnum.AES.getValue();
 
     /**
      * Rest API的注册信息.
      */
     private RegisterInfo registerInfo;
 
-    private Dispatcher(Vertx vertx, RegisterInfo regInfo) {
-        this.vertx = vertx;
-        this.registerInfo = regInfo;
+    private SystemSourceInfo systemSourceInfo;
+
+    private Dispatcher(ServiceInfo serviceInfo) {
+        this.vertx = StandardVertxUtil.getStandardVertx();
+        this.registerInfo = serviceInfo.getRegisterInfo();
+        this.systemSourceInfo = serviceInfo.getSystemSourceInfo();
         mongoDAO = MongoDAO.create(StandardVertxUtil.getStandardVertx());
     }
 
-    public static Dispatcher create(Vertx vertx, RegisterInfo regInfo) {
-        return new Dispatcher(vertx, regInfo);
+    public static Dispatcher create(ServiceInfo serviceInfo) {
+        return new Dispatcher(serviceInfo);
     }
 
     @Override
@@ -108,9 +106,7 @@ public class Dispatcher implements Handler<RoutingContext> {
      */
     private void travelWithCommand(RegisterInfo registerMessage, RoutingContext context) {
         logger.debug("Using [Command] mode to deliver primitive register message: " + registerMessage);
-        logger.info("WebServer is delivering request to target address:" + registerMessage.getAddress());
-        String address = appPrefix + registerMessage.getClassName();
-        logger.info("Command ready send a message " + address);
+        logger.info("WebServer is delivering request to target address:" + registerMessage.getUri());
         JsonObject jsonObject = context.getBodyAsJson();
         HttpServerResponse response = context.response();
         CommandReq commandReq = null;
@@ -124,6 +120,8 @@ public class Dispatcher implements Handler<RoutingContext> {
             response.end(e.toString());
             return;
         }
+        String address = httpRequestDto.getSystemSource() + DOT + registerMessage.getClassName();
+        logger.info("Command ready send a message " + address);
         buildRequestInfo(httpRequestDto);
         logger.info("收到业务线请求:{}", context);
         commandReq = CommandReq.buildCommand(getRequestPath(context), httpRequestDto.getRequestNo(), requestBody);
@@ -149,10 +147,9 @@ public class Dispatcher implements Handler<RoutingContext> {
         if (requestDto == null) {
             throw new GatewayException(ExceptionEnums.E10004);
         }
-        String bizCode = requestDto.getBizCode();
+        String systemSource = requestDto.getSystemSource();
         String serviceCode = requestDto.getServiceCode();
-
-        if (StringUtils.isBlank(bizCode)) {
+        if (StringUtils.isBlank(systemSource)) {
             throw new GatewayException(ExceptionEnums.REQ_BIZCODE_NULL);
         }
         if (StringUtils.isBlank(serviceCode)) {
@@ -161,7 +158,7 @@ public class Dispatcher implements Handler<RoutingContext> {
         if (StringUtils.isBlank(requestDto.getContext())) {
             throw new GatewayException(ExceptionEnums.REQ_CONTEXT_NULL);
         }
-        if (BooleanEnum.TRUE.check(registerInfo.getNeedSign())) {
+        if (BooleanEnum.TRUE.check(systemSourceInfo.getNeedSign())) {
             if (StringUtils.isBlank(requestDto.getSign())) {
                 throw new GatewayException(ExceptionEnums.REQ_SIGN_NULL);
             }
@@ -170,19 +167,19 @@ public class Dispatcher implements Handler<RoutingContext> {
     }
 
     private String beforeHandler(HttpRequestDto req) throws GatewayException {
-        if (BooleanEnum.FALSE.check(registerInfo.getNeedSign())) {
+        if (BooleanEnum.FALSE.check(systemSourceInfo.getNeedSign())) {
             return req.getContext();
         }
-        if (!VerfyUtil.verfySign(signType, req.getContext(), req.getSign(), registerInfo.getSignKey())) {
-            String logSignKey = registerInfo.getSignKey();
+        if (!VerfyUtil.verfySign(systemSourceInfo.getSignType(), req.getContext(), req.getSign(), systemSourceInfo.getSignKey())) {
+            String logSignKey = systemSourceInfo.getSignKey();
             if (StringUtils.isNotBlank(logSignKey) && logSignKey.length() >= 2) {
                 logSignKey = logSignKey.substring(logSignKey.length() - 2);
             }
             logger.error("验签失败,SignType:{0},Context:{1},Sign:{2},SignKey:{3},bizKey:{4}",
-                    signType, req.getContext(), req.getSign(), logSignKey, registerInfo.getEncryptKey());
+                    systemSourceInfo.getSignType(), req.getContext(), req.getSign(), logSignKey, systemSourceInfo.getEncryptKey());
             throw new GatewayException(ExceptionEnums.UNSIGN_ERROR);
         }
-        return VerfyUtil.decrypt(encryptType, req.getContext(), registerInfo.getEncryptKey());
+        return VerfyUtil.decrypt(systemSourceInfo.getEncryptType(), req.getContext(), systemSourceInfo.getEncryptKey());
     }
 
     private void buildRequestInfo(HttpRequestDto httpRequestDto) {

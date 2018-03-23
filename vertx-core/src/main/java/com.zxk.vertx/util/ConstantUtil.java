@@ -16,4 +16,8 @@ public class ConstantUtil {
     public static final String REQUEST_DETAIL = "request_detail_";
 
     public static final String RESTFUL_API_REG_INFO = "ApiRegInfo";
+
+    public static final String SHARED_DATA_STORAGE="vertx:gateway";
+
+    public static final String DOT=".";
 }

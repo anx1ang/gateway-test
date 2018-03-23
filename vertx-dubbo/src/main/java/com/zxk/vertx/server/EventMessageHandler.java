@@ -1,6 +1,7 @@
 package com.zxk.vertx.server;
 
 import com.zxk.entity.RegisterInfo;
+import com.zxk.entity.ServiceInfo;
 import io.vertx.core.Handler;
 import io.vertx.core.Vertx;
 import io.vertx.ext.web.RoutingContext;
@@ -23,5 +24,5 @@ public interface EventMessageHandler extends Handler<RoutingContext> {
      * @param options 桥接选项，用于配置桥接协议和派发策略。
      * @return this
      */
-    EventMessageHandler bridge(List<RegisterInfo> registerInfos);
+    EventMessageHandler bridge(List<ServiceInfo> serviceInfo);
 }

@@ -1,6 +1,7 @@
 package com.zxk.starter;
 
 import com.zxk.entity.RegisterInfo;
+import com.zxk.entity.ServiceInfo;
 import com.zxk.vertx.server.WebServerVerticle;
 import com.zxk.vertx.standard.StandardVertxUtil;
 import io.vertx.core.DeploymentOptions;
@@ -33,13 +34,13 @@ public class DeployVertxServer {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(DeployVertxServer.class);
 
-    public static void startServer(List<RegisterInfo> registerInfo, Integer port) {
+    public static void startServer(List<ServiceInfo> serviceInfo, Integer port) {
         LOGGER.info("Start Deploy WebServerVerticle....,prot={}", port);
 
         JsonObject deployConfig = new JsonObject();
         deployConfig.put(CONFIG_HTTP_PORT_KEY, port);
         DeploymentOptions options = new DeploymentOptions().setConfig(deployConfig);
-        StandardVertxUtil.getStandardVertx().deployVerticle(new WebServerVerticle(registerInfo), options);
+        StandardVertxUtil.getStandardVertx().deployVerticle(new WebServerVerticle(serviceInfo), options);
     }
 
     public static void startDeploy() {

@@ -1,6 +1,6 @@
 package com.zxk.starter;
 
-import com.zxk.entity.MethodMap;
+import com.zxk.sharedData.LocalDataMap;
 import com.zxk.vertx.address.EventBusAddress;
 import com.zxk.vertx.standard.StandardVertxUtil;
 import io.vertx.core.DeploymentOptions;
@@ -34,7 +34,7 @@ public class RegistryHandlersFactory {
     private List<String> facadeInfos;
 
     public RegistryHandlersFactory() {
-        this.facadeInfos = MethodMap.getFacadeInfo();
+        this.facadeInfos = LocalDataMap.getFacadeInfo();
         Objects.requireNonNull(facadeInfos, "The router package address scan is empty.");
     }
 

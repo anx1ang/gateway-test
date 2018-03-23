@@ -14,9 +14,12 @@ public class CommandReq extends JsonObject {
 
     private final static String REQUESTBODY = "requestBody";
 
-    public CommandReq(String method, String requestBody) {
+    private final static String SYSTEMSOURCE = "systemSource";
+
+    public CommandReq(String method, String requestBody, String requestNo) {
         put(METHOD, method);
         put(REQUESTBODY, requestBody);
+        put(REQUESTNO, requestNo);
     }
 
     public String getMethod() {
@@ -27,11 +30,15 @@ public class CommandReq extends JsonObject {
         return getString(REQUESTBODY);
     }
 
+    public String getSYSTEMSOURCE() {
+        return getString(SYSTEMSOURCE);
+    }
+
     public static CommandReq buildCommand(String method, String requestNo, String requestBody) {
-        return new CommandReq(method, requestBody);
+        return new CommandReq(method, requestBody, requestNo);
     }
 
     public static CommandReq buildCommand(JsonObject jsonObject) {
-        return buildCommand(jsonObject.getString(METHOD), jsonObject.getString(REQUESTBODY),jsonObject.getString(REQUESTNO));
+        return buildCommand(jsonObject.getString(METHOD), jsonObject.getString(REQUESTBODY), jsonObject.getString(REQUESTNO));
     }
 }

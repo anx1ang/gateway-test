@@ -1,7 +1,9 @@
 package com.zxk.vertx.server;
 
 import com.zxk.entity.RegisterInfo;
+import com.zxk.entity.ServiceInfo;
 import com.zxk.mongo.MongoDAO;
+import com.zxk.sharedData.ShareableUtil;
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.Context;
 import io.vertx.core.Future;
@@ -48,12 +50,12 @@ public class WebServerVerticle extends AbstractVerticle {
     private AuthSwitch authSwitch;
     private AuthConfig authConfig;
 
-    private List<RegisterInfo> registerInfos;
+    private List<ServiceInfo> serviceInfo;
 
     private MongoDAO mongoDAO;
 
-    public WebServerVerticle(List<RegisterInfo> registerInfos) {
-        this.registerInfos = registerInfos;
+    public WebServerVerticle(List<ServiceInfo> serviceInfo) {
+        this.serviceInfo = serviceInfo;
     }
 
     @Override
@@ -228,9 +230,9 @@ public class WebServerVerticle extends AbstractVerticle {
 
 
     private EventMessageHandler apiMessageHandler() {
-        if (registerInfos != null) {
+        if (serviceInfo != null) {
             EventMessageHandler handler = EventMessageHandler.create(vertx);
-            handler.bridge(registerInfos);
+            handler.bridge(serviceInfo);
             return handler;
         } else {
             return null;

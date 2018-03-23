@@ -15,7 +15,7 @@ public class HttpRequestDto {
     /**
      * 业务线编号
      */
-    private String bizCode;
+    private String systemSource;
 
     /**
      * 签名
@@ -38,12 +38,12 @@ public class HttpRequestDto {
     private Date requestTime;
 
 
-    public String getBizCode() {
-        return bizCode;
+    public String getSystemSource() {
+        return systemSource;
     }
 
-    public void setBizCode(String bizCode) {
-        this.bizCode = bizCode;
+    public void setSystemSource(String systemSource) {
+        this.systemSource = systemSource;
     }
 
     public String getSign() {

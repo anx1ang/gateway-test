@@ -7,6 +7,8 @@ import java.lang.reflect.Method;
  */
 public class MethodInfo {
 
+    private String systemSource;
+
     private Object inteface;
 
     private Method methodName;
@@ -45,5 +47,13 @@ public class MethodInfo {
 
     public void setResp(Class resp) {
         this.resp = resp;
+    }
+
+    public String getSystemSource() {
+        return systemSource;
+    }
+
+    public void setSystemSource(String systemSource) {
+        this.systemSource = systemSource;
     }
 }

@@ -1,6 +1,8 @@
 package com.zxk.vertx.server;
 
 import com.zxk.entity.RegisterInfo;
+import com.zxk.entity.ServiceInfo;
+import com.zxk.sharedData.ShareableUtil;
 import com.zxk.starter.StartRunner;
 import io.vertx.core.Handler;
 import io.vertx.core.Vertx;
@@ -39,8 +41,9 @@ public class EventMessageHandlerImpl implements EventMessageHandler {
      * @return this
      */
     @Override
-    public EventMessageHandler bridge(List<RegisterInfo> registerInfos) {
-        for (RegisterInfo registerInfo : registerInfos) {
+    public EventMessageHandler bridge(List<ServiceInfo> serviceInfos) {
+        for (ServiceInfo serviceInfo : serviceInfos) {
+            RegisterInfo registerInfo = serviceInfo.getRegisterInfo();
             LOGGER.info("添加一个API接口: " + registerInfo.getUri());
             // 单独注册
             String url = registerInfo.getUri().replace(".", "/");
@@ -49,14 +52,9 @@ public class EventMessageHandlerImpl implements EventMessageHandler {
             url = url.startsWith("/") ? url : "/" + url;
             Route route = addRoute(METHOD, url);
             LOGGER.info("开始监听 REST API 地址[" + url + "]");
-            route.handler(dispatch(registerInfo));
+            route.handler(Dispatcher.create(serviceInfo));
         }
         return this;
-    }
-
-
-    private Handler<RoutingContext> dispatch(RegisterInfo registerMessage) {
-        return Dispatcher.create(vertx, registerMessage);
     }
 
     private Route addRoute(String method, String path) {

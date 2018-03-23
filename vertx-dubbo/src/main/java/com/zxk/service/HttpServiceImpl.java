@@ -6,6 +6,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.zxk.entity.*;
 import com.zxk.enums.ExceptionEnums;
 import com.zxk.exception.GatewayException;
+import com.zxk.sharedData.LocalDataMap;
 import com.zxk.utils.JsonParser;
 import com.zxk.utils.LogUtil;
 import com.zxk.utils.VerfyUtil;
@@ -54,7 +55,7 @@ public class HttpServiceImpl implements GatewayService<HttpRequestDto, HttpRespo
     @Override
     public Object doHandler(HttpRequestDto req) throws GatewayException{
 
-        MethodInfo methodInfo = MethodMap.getMethodMap().get(req.getServiceCode());
+        MethodInfo methodInfo = LocalDataMap.getMethodMap().get(req.getServiceCode());
         if(methodInfo==null){
             throw new GatewayException(ExceptionEnums.INVOKE_UNIMPL_METHOD);
         }

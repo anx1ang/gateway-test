@@ -2,21 +2,22 @@ package com.zxk.starter;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
-import com.zxk.entity.FacadeInfo;
 import com.zxk.entity.MethodInfo;
-import com.zxk.entity.MethodMap;
+import com.zxk.entity.RegisterInfo;
+import com.zxk.entity.ServiceInfo;
+import com.zxk.entity.SystemSourceInfo;
+import com.zxk.sharedData.LocalDataMap;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
 
-import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
 import java.lang.reflect.Method;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import static com.zxk.vertx.util.ConstantUtil.DOT;
 
 /**
  * Created by wangyi on 2016/11/15.
@@ -41,10 +42,7 @@ public class InitService {
             return;
         }
         Map<String, MethodInfo> methodMap = Maps.newHashMap();
-        List<String> facadeInfo = Lists.newArrayList();
-
         for (String serviceName : serviceCodeMap.keySet()) {
-            facadeInfo.add(serviceName);
             Object serviceInteface = serviceCodeMap.get(serviceName);
             Method[] methods = serviceInteface.getClass().getDeclaredMethods();
             for (Method method : methods) {
@@ -57,13 +55,44 @@ public class InitService {
                 methodInfo.setMethodName(method);
                 methodInfo.setParam(methodParams[0]);
                 methodInfo.setResp(resp);
-                methodMap.put(serviceName + "." + methodName, methodInfo);
+                methodMap.put(addDot(serviceName, methodName), methodInfo);
                 System.out.println("已加载:" + serviceName + "." + methodName);
             }
         }
-        MethodMap.setFacadeInfo(facadeInfo);
-        MethodMap.setMethodMap(methodMap);
+        LocalDataMap.setMethodMap(methodMap);
         System.out.println("自定义map加载完毕");
+    }
+
+    public List<ServiceInfo> initRegisterInfo(List<SystemSourceInfo> systemSourceInfo, List<RegisterInfo> registerInfo) {
+        Map<String, SystemSourceInfo> systemSourceInfoMap = Maps.newHashMap();
+        for (SystemSourceInfo systemSource : systemSourceInfo) {
+            systemSourceInfoMap.put(systemSource.getSystemSource(), systemSource);
+        }
+        List<String> facadeInfo = Lists.newArrayList();
+        List<ServiceInfo> serviceInfos = Lists.newArrayList();
+        LocalDataMap.setSystemSourceInfoMap(systemSourceInfoMap);
+
+        Map<String, MethodInfo> methodMap = LocalDataMap.getMethodMap();
+        for (RegisterInfo register : registerInfo) {
+            SystemSourceInfo systemSource = systemSourceInfoMap.get(register.getSystemSource());
+            if (systemSource == null) {
+            }
+            ServiceInfo serviceInfo = new ServiceInfo();
+            serviceInfo.setRegisterInfo(register);
+            serviceInfo.setSystemSourceInfo(systemSource);
+            serviceInfos.add(serviceInfo);
+
+            MethodInfo methodInfo = methodMap.get(addDot(register.getClassName(), register.getAction()));
+            if (methodInfo == null) {
+            }
+            facadeInfo.add(addDot(register.getSystemSource(), register.getClassName()));
+        }
+        LocalDataMap.setFacadeInfo(facadeInfo);
+        return serviceInfos;
+    }
+
+    private static String addDot(String className, String methodName) {
+        return className.concat(DOT).concat(methodName);
     }
 
     public void setHost(String host) {

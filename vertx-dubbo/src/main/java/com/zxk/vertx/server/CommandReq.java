@@ -30,6 +30,10 @@ public class CommandReq extends JsonObject {
         return getString(REQUESTBODY);
     }
 
+    public String getRequestNo() {
+        return getString(REQUESTNO);
+    }
+
     public String getSYSTEMSOURCE() {
         return getString(SYSTEMSOURCE);
     }
@@ -39,6 +43,6 @@ public class CommandReq extends JsonObject {
     }
 
     public static CommandReq buildCommand(JsonObject jsonObject) {
-        return buildCommand(jsonObject.getString(METHOD), jsonObject.getString(REQUESTBODY), jsonObject.getString(REQUESTNO));
+        return buildCommand(jsonObject.getString(METHOD), jsonObject.getString(REQUESTNO), jsonObject.getString(REQUESTBODY));
     }
 }

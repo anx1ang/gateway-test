@@ -15,6 +15,7 @@ public enum  ExceptionEnums {
 
     //    HTTP返回
     REQUEST_NULL("H0001","请求对象为空"),REQ_BIZCODE_NULL("H0002","bizCode为空"),
+    REQ_SYSTEM_SOURCE_NULL("H0002","bizCode为空"),
     REQ_CONTEXT_NULL("H0003","context为空"),REQ_SERVICECODE_NULL("H0004","serviceCode为空"),
     REQ_SIGN_NULL("H0005","sign为空"),QUERY_BIZCODE_NULL("H0006","业务线未注册或被禁用"),
     QUERY_SERVICE_CODE_NULL("H0007","接口未注册或被禁用"),IP_NULL("H0020","IP地址不在白名单"),

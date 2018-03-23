@@ -112,6 +112,7 @@ public class Dispatcher implements Handler<RoutingContext> {
         CommandReq commandReq = null;
         HttpRequestDto httpRequestDto = null;
         String requestBody = null;
+        Long startTime = System.currentTimeMillis();
         try {
             httpRequestDto = validate(jsonObject);
             requestBody = beforeHandler(httpRequestDto);
@@ -122,21 +123,31 @@ public class Dispatcher implements Handler<RoutingContext> {
         }
         String address = httpRequestDto.getSystemSource() + DOT + registerMessage.getClassName();
         logger.info("Command ready send a message " + address);
-        buildRequestInfo(httpRequestDto);
-        logger.info("收到业务线请求:{}", context);
+        String requestNo = buildRequestInfo(httpRequestDto);
+        logger.info("收到业务线请求:{}", httpRequestDto.getContext());
         commandReq = CommandReq.buildCommand(getRequestPath(context), httpRequestDto.getRequestNo(), requestBody);
         SenderInvokeHandler.sendProcess(address, commandReq.getMethod(), commandReq, result -> {
+            Long endTime = System.currentTimeMillis();
             response.putHeader("content-type", "application/json; charset=utf-8");
             if (result.succeeded()) {
                 JsonObject resultBody = result.result().body();
                 logger.info("WebServer ready send a message success，result= " + resultBody.toString());
                 response.setStatusCode(200);
-                response.end(resultBody.toString());
+                response.end(buildResponse(requestNo, resultBody, startTime, endTime).toString());
             } else {
                 response.setStatusCode(200);
-                response.end("处理失败");
+                response.end(new GatewayException(ExceptionEnums.ERROR).toString());
             }
         });
+    }
+
+    private JsonObject buildResponse(String requestNo, JsonObject resultBody, Long startTime, Long endTime) {
+        JsonObject responseBody = new JsonObject();
+        responseBody.put("requestNo", requestNo);
+        responseBody.put("requestTime", startTime);
+        responseBody.put("responseTime", endTime);
+        responseBody.put("data", resultBody);
+        return responseBody;
     }
 
     private HttpRequestDto validate(JsonObject req) throws GatewayException {
@@ -150,7 +161,7 @@ public class Dispatcher implements Handler<RoutingContext> {
         String systemSource = requestDto.getSystemSource();
         String serviceCode = requestDto.getServiceCode();
         if (StringUtils.isBlank(systemSource)) {
-            throw new GatewayException(ExceptionEnums.REQ_BIZCODE_NULL);
+            throw new GatewayException(ExceptionEnums.REQ_SYSTEM_SOURCE_NULL);
         }
         if (StringUtils.isBlank(serviceCode)) {
             throw new GatewayException(ExceptionEnums.REQ_SERVICECODE_NULL);
@@ -182,7 +193,7 @@ public class Dispatcher implements Handler<RoutingContext> {
         return VerfyUtil.decrypt(systemSourceInfo.getEncryptType(), req.getContext(), systemSourceInfo.getEncryptKey());
     }
 
-    private void buildRequestInfo(HttpRequestDto httpRequestDto) {
+    private String buildRequestInfo(HttpRequestDto httpRequestDto) {
         httpRequestDto.setRequestTime(new Date());
         String requestNo = TraceUtil.getTraceId();
         httpRequestDto.setRequestNo(requestNo);
@@ -191,6 +202,7 @@ public class Dispatcher implements Handler<RoutingContext> {
 
             }
         });
+        return requestNo;
     }
 
     private String getRequestPath(RoutingContext context) {

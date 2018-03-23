@@ -29,8 +29,6 @@ public class RegistryHandlersFactory {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(DeployVertxServer.class);
 
-    public static final String BASE_ROUTER = "dubboServer";
-
     private List<String> facadeInfos;
 
     public RegistryHandlersFactory() {
@@ -56,17 +54,9 @@ public class RegistryHandlersFactory {
                 if (busAddressPrefix.startsWith("/")) {
                     busAddressPrefix = busAddressPrefix.substring(1, busAddressPrefix.length());
                 }
-                if (!BASE_ROUTER.endsWith("/")) {
-                    busAddressPrefix = BASE_ROUTER + "/" + busAddressPrefix;
-                } else {
-                    busAddressPrefix = BASE_ROUTER + busAddressPrefix;
-                }
 
                 if (busAddressPrefix.endsWith("/")) {
                     busAddressPrefix = busAddressPrefix.substring(0, busAddressPrefix.length() - 1);
-                }
-                if (busAddressPrefix.startsWith("/")) {
-                    busAddressPrefix = busAddressPrefix.substring(1, busAddressPrefix.length());
                 }
                 /***** 每一个方法都部署一个verticle *****/
                 LOGGER.info("[Method] The register processor address is {}", EventBusAddress.positiveFormate(busAddressPrefix));
